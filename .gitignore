@@ -1,5 +1,2 @@
-<<<<<<< OURS
-backend/target/
-=======
-backend/target/
->>>>>>> THEIRS
+target/
+
