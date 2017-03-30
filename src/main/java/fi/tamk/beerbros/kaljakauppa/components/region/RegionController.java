@@ -37,4 +37,11 @@ public class RegionController {
         regionService.add(region);
         return region;
     }
+    
+    @RequestMapping(
+        value = "/regions/{id}",
+        method = RequestMethod.PUT)
+    public void updateRegion(@RequestBody Region region, @PathVariable int id) {
+        regionService.update(id, region);
+    }
 }
