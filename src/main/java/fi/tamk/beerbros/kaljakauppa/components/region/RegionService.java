@@ -1,38 +1,34 @@
 package fi.tamk.beerbros.kaljakauppa.components.region;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RegionService {
-    
-    private List<Region> regions = new ArrayList<>();
-    
-    public RegionService() {
-        regions.add(new Region(1, "Sweden"));
-    }
+
+    @Autowired
+    RegionRepository regionRepository;
     
     public Iterable<Region> findAll() {
-        return regions;
+        return regionRepository.findAll();
     }
     
     public Region findById(int id) {
         
-        return regions.stream().filter(r -> r.getId() == id).findFirst().get();
+        return regionRepository.findOne(id);
     }
     
     public void add(Region region) {
-        regions.add(region);
+        regionRepository.save(region);
     }
     
     public void update(int id, Region region) {
         Region r = findById(id);
         r.setName(region.getName());
+        regionRepository.save(r);
     }
     
     public void delete(int id) {
-        regions.remove(findById(id));
+        regionRepository.delete(id);
     }
 }
