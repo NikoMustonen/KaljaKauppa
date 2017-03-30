@@ -1,4 +1,4 @@
-package fi.tamk.beerbros.kaljakauppa.database.entities;
+package fi.tamk.beerbros.kaljakauppa.components.region;
 
 import java.io.Serializable;
 import javax.persistence.*;
