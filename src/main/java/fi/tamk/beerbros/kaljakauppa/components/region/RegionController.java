@@ -44,4 +44,11 @@ public class RegionController {
     public void updateRegion(@RequestBody Region region, @PathVariable int id) {
         regionService.update(id, region);
     }
+    
+    @RequestMapping(
+        value = "/regions/{id}",
+        method = RequestMethod.DELETE)
+    public void deleteRegion(@PathVariable int id) {
+        regionService.delete(id);
+    }
 }
