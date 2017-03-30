@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"fi.tamk.beerbros.kaljakauppa.components.region"})
+@ComponentScan(basePackages = {"fi.tamk.beerbros.kaljakauppa.components"})
 public class Main {
 
     public static void main(String... args) {
