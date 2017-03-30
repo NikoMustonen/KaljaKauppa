@@ -1,5 +1,6 @@
 package fi.tamk.beerbros.kaljakauppa.components.region;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -7,17 +8,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegionService {
     
-    private final List<Region> regions = Arrays.asList(
-            new Region(1, "Sweden"),
-            new Region(2, "Finland"),
-            new Region(3, "Norway"),
-            new Region(4, "Denmark"),
-            new Region(5, "England"),
-            new Region(6, "Spain"),
-            new Region(7, "New Zeland")
-    );
+    private List<Region> regions = new ArrayList<>();
+    
+    public RegionService() {
+        regions.add(new Region(1, "Sweden"));
+    }
     
     public Iterable<Region> findAll() {
         return regions;
+    }
+    
+    public Region findById(int id) {
+        
+        return regions.stream().filter(r -> r.getId() == id).findFirst().get();
+    }
+    
+    public void add(Region region) {
+        regions.add(region);
     }
 }
