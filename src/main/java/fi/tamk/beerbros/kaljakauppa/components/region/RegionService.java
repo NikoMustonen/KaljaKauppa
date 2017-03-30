@@ -31,4 +31,8 @@ public class RegionService {
         Region r = findById(id);
         r.setName(region.getName());
     }
+    
+    public void delete(int id) {
+        regions.remove(findById(id));
+    }
 }
