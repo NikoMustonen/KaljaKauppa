@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 public class RegionController {
@@ -18,5 +21,20 @@ public class RegionController {
     public Iterable<Region> getAllRegions() {
         
         return regionService.findAll();
+    }
+    
+    @RequestMapping(
+        value = "/regions/{id}")
+    public Region getRegionById(@PathVariable(name = "id") int id) {
+        return regionService.findById(id);
+    }
+    
+    @RequestMapping(
+        value = "/regions",
+        method = RequestMethod.POST)
+    public Region addRegion(@RequestBody Region region) {
+        
+        regionService.add(region);
+        return region;
     }
 }
