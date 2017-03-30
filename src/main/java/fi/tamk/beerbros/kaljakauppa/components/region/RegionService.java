@@ -26,4 +26,9 @@ public class RegionService {
     public void add(Region region) {
         regions.add(region);
     }
+    
+    public void update(int id, Region region) {
+        Region r = findById(id);
+        r.setName(region.getName());
+    }
 }
