@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan({"fi.tamk.beerbros.kaljakauppa.components"})
-@EntityScan("fi.tamk.beerbros.kaljakauppa.components.region")
-@EnableJpaRepositories("fi.tamk.beerbros.kaljakauppa.components.region")
+@EntityScan("fi.tamk.beerbros.kaljakauppa.components")
+@EnableJpaRepositories("fi.tamk.beerbros.kaljakauppa.components")
 public class Main {
 
     public static void main(String... args) {
