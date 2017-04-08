@@ -1,9 +1,10 @@
 package fi.tamk.beerbros.kaljakauppa.components.product.beer;
 
 import fi.tamk.beerbros.kaljakauppa.components.product.AlcoholicBeverage;
+import fi.tamk.beerbros.kaljakauppa.components.type.Type;
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "beer")
 @DiscriminatorValue(value = "BEER")
 public class Beer extends AlcoholicBeverage {
     
@@ -15,6 +16,9 @@ public class Beer extends AlcoholicBeverage {
     
     @Column(name = "ebc")
     protected Float ebc;
+    
+    @ManyToOne
+    protected Type beerType;
     
     public Beer() {}
 
@@ -40,5 +44,14 @@ public class Beer extends AlcoholicBeverage {
 
     public void setEbc(Float ebc) {
         this.ebc = ebc;
+    }
+
+    public Type getBeerType() {
+        return beerType;
+    }
+
+    public void setBeerType(String beerType) {
+        Type type = new Type(beerType, null);
+        this.beerType = type;
     }
 }
