@@ -5,12 +5,12 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class TypeController {
+public class BeerTypeController {
 
     @Autowired
     TypeRepository tr;
 
-    @RequestMapping(value = "/maintypes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/beertypes", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Type> getMainTypes() {
         return tr.findMainTypes();
     }
