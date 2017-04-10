@@ -1,8 +1,6 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.country;
+package fi.tamk.beerbros.kaljakauppa.components.country;
 
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.Beer;
-import fi.tamk.beerbros.kaljakaupparedo.components.beertype.BeerType;
-import java.io.Serializable;
+import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

@@ -1,8 +1,8 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.beer;
+package fi.tamk.beerbros.kaljakauppa.components.beer;
 
-import fi.tamk.beerbros.kaljakaupparedo.components.beertype.BeerType;
-import fi.tamk.beerbros.kaljakaupparedo.components.manufacturer.Manufacturer;
-import fi.tamk.beerbros.kaljakaupparedo.components.country.Country;
+import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerType;
+import fi.tamk.beerbros.kaljakauppa.components.manufacturer.Manufacturer;
+import fi.tamk.beerbros.kaljakauppa.components.country.Country;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;

@@ -1,24 +1,14 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.country;
+package fi.tamk.beerbros.kaljakauppa.components.country;
 
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.Beer;
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.BeerRepository;
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.BeerResourceAssembler;
-import fi.tamk.beerbros.kaljakaupparedo.components.beertype.BeerType;
-import fi.tamk.beerbros.kaljakaupparedo.components.beertype.BeerTypeResourceAssembler;
-import java.util.ArrayList;
-import java.util.List;
+import fi.tamk.beerbros.kaljakauppa.components.beer.*;
+import fi.tamk.beerbros.kaljakauppa.components.beertype.*;
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.*;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/countries")

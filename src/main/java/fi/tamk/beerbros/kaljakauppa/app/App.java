@@ -9,9 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"fi.tamk.beerbros.kaljakaupparedo.components"})
-@EntityScan("fi.tamk.beerbros.kaljakaupparedo.components")
-@EnableJpaRepositories("fi.tamk.beerbros.kaljakaupparedo.components")
+@ComponentScan(basePackages = {"fi.tamk.beerbros.kaljakauppa.components"})
+@EntityScan("fi.tamk.beerbros.kaljakauppa.components")
+@EnableJpaRepositories("fi.tamk.beerbros.kaljakauppa.components")
 @EnableAutoConfiguration(exclude = RepositoryRestMvcAutoConfiguration.class)
 public class App {
     

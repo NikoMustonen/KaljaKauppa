@@ -1,7 +1,7 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.beer;
+package fi.tamk.beerbros.kaljakauppa.components.beer;
 
-import fi.tamk.beerbros.kaljakaupparedo.components.beertype.BeerType;
-import fi.tamk.beerbros.kaljakaupparedo.components.country.Country;
+import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerType;
+import fi.tamk.beerbros.kaljakauppa.components.country.Country;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 

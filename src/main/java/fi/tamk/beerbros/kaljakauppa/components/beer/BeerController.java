@@ -1,4 +1,4 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.beer;
+package fi.tamk.beerbros.kaljakauppa.components.beer;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -61,7 +61,12 @@ public class BeerController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void modifyBeer(@RequestBody Beer beer) {
-        br.save(beer);
+    public Resource<Beer> modifyBeer(
+            @PathVariable int id, 
+            @RequestBody Beer beer) {
+        Beer b = br.findOne(id);
+        b = beer;
+        br.save(b);
+        return resourceAssembler.toResource(beer);
     }
 }

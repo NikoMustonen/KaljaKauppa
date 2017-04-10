@@ -1,4 +1,4 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.manufacturer;
+package fi.tamk.beerbros.kaljakauppa.components.manufacturer;
 
 import java.util.ArrayList;
 import java.util.List;

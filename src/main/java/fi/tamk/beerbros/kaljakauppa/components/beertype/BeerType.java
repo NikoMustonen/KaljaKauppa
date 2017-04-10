@@ -1,8 +1,8 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.beertype;
+package fi.tamk.beerbros.kaljakauppa.components.beertype;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.Beer;
+import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;

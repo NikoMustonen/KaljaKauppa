@@ -1,7 +1,7 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.manufacturer;
+package fi.tamk.beerbros.kaljakauppa.components.manufacturer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.Beer;
+import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;

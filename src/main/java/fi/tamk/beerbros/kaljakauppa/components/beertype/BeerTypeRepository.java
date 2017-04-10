@@ -1,4 +1,4 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.beertype;
+package fi.tamk.beerbros.kaljakauppa.components.beertype;
 
 import org.springframework.data.repository.CrudRepository;
 

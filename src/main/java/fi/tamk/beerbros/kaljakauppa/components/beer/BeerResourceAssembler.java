@@ -1,8 +1,8 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.beer;
+package fi.tamk.beerbros.kaljakauppa.components.beer;
 
-import fi.tamk.beerbros.kaljakaupparedo.components.beertype.BeerTypeController;
-import fi.tamk.beerbros.kaljakaupparedo.components.country.CountryController;
-import fi.tamk.beerbros.kaljakaupparedo.components.manufacturer.ManufacturerController;
+import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerTypeController;
+import fi.tamk.beerbros.kaljakauppa.components.country.CountryController;
+import fi.tamk.beerbros.kaljakauppa.components.manufacturer.ManufacturerController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;

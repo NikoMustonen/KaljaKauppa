@@ -1,4 +1,4 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.country;
+package fi.tamk.beerbros.kaljakauppa.components.country;
 
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;

@@ -1,10 +1,8 @@
-package fi.tamk.beerbros.kaljakaupparedo.components.beertype;
+package fi.tamk.beerbros.kaljakauppa.components.beertype;
 
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.Beer;
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.BeerRepository;
-import fi.tamk.beerbros.kaljakaupparedo.components.beer.BeerResourceAssembler;
-import fi.tamk.beerbros.kaljakaupparedo.components.country.Country;
-import fi.tamk.beerbros.kaljakaupparedo.components.country.CountryController;
+import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
+import fi.tamk.beerbros.kaljakauppa.components.beer.BeerRepository;
+import fi.tamk.beerbros.kaljakauppa.components.beer.BeerResourceAssembler;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
