@@ -204,7 +204,7 @@ public class Beer implements Serializable {
             plato = plato.replaceAll("[^\\d.]", "");
             this.platoScale = Float.parseFloat(plato);
         } else if (ibuScale instanceof Float) {
-            this.platoScale = (Float)this.platoScale; 
+            this.platoScale = (Float)platoScale; 
         }
     }
 
