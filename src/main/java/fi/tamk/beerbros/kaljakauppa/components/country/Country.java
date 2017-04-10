@@ -5,7 +5,7 @@ import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
-//Test comment
+
 @Entity(name = "country")
 public class Country implements Serializable {
     
