@@ -1,5 +1,6 @@
 package fi.tamk.beerbros.kaljakauppa.components.beer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerType;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.Manufacturer;
 import fi.tamk.beerbros.kaljakauppa.components.country.Country;
@@ -34,11 +35,11 @@ public class Beer implements Serializable {
     @Column(name = "description")
     protected String description;
     
-    @Column(name = "abv_percent")
+    @Column(name = "abv_percent", nullable = false)
     private Float abvPercent;
     
     @ManyToOne
-    @JoinColumn(name = "beer_type", referencedColumnName = "name", nullable = true)
+    @JoinColumn(name = "beer_type", referencedColumnName = "name", nullable = false)
     protected BeerType beerType;
     
     @Column(name = "price_per_liter")
@@ -104,15 +105,7 @@ public class Beer implements Serializable {
     }
 
     public void setPrice(Object price) {
-        
-        if(price instanceof String) {
-            String priceString = (String) price;
-            priceString = priceString.replace(",", ".").trim();
-            priceString = priceString.replaceAll("[^\\d.]", "");
-            this.price = Float.parseFloat(priceString);
-        } else if(price instanceof Float) {
-            this.price = (Float)price;
-        }
+        this.price = getCleanedFloatValue(price);
     }
 
     public String getVolume() {
@@ -136,14 +129,7 @@ public class Beer implements Serializable {
     }
 
     public void setAbvPercent(Object abvPercent) {
-        if(abvPercent instanceof String) {
-            String abv = (String) abvPercent;
-            abv = abv.replace(",", ".").trim();
-            abv = abv.replaceAll("[^\\d.]", "");
-            this.abvPercent = Float.parseFloat(abv);
-        } else if(price instanceof Float) {
-            this.abvPercent = (Float)abvPercent;
-        }
+        this.abvPercent = getCleanedFloatValue(abvPercent);
     }
 
     public BeerType getBeerType() {
@@ -183,14 +169,7 @@ public class Beer implements Serializable {
     }
 
     public void setIbuScale(Object ibuScale) {
-        if(ibuScale instanceof String) {
-            String ibu = (String) ibuScale;
-            ibu = ibu.replaceFirst(",", ".");
-            ibu = ibu.replaceAll("[^\\d.]", "");
-            this.ibuScale = Float.parseFloat(ibu);
-        } else if (ibuScale instanceof Float) {
-            this.ibuScale = (Float)ibuScale; 
-        }
+        this.ibuScale = getCleanedFloatValue(ibuScale);
     }
 
     public Float getPlatoScale() {
@@ -198,14 +177,7 @@ public class Beer implements Serializable {
     }
 
     public void setPlatoScale(Object platoScale) {
-        if(platoScale instanceof String) {
-            String plato = (String) platoScale;
-            plato = plato.replaceFirst(",", ".");
-            plato = plato.replaceAll("[^\\d.]", "");
-            this.platoScale = Float.parseFloat(plato);
-        } else if (ibuScale instanceof Float) {
-            this.platoScale = (Float)platoScale; 
-        }
+        this.platoScale = getCleanedFloatValue(platoScale);
     }
 
     public Float getEbc() {
@@ -213,14 +185,7 @@ public class Beer implements Serializable {
     }
 
     public void setEbc(Object ebcScale) {
-        if(ebcScale instanceof String) {
-            String ebcS = (String) ebcScale;
-            ebcS = ebcS.replaceFirst(",", ".");
-            ebcS = ebcS.replaceAll("[^\\d.]", "");
-            this.ebc = Float.parseFloat(ebcS);
-        } else if (ibuScale instanceof Float) {
-            this.ebc = (Float)ebcScale; 
-        }
+        this.ebc = getCleanedFloatValue(ebcScale);
     }
 
     public Timestamp getTimeAdded() {
@@ -229,5 +194,18 @@ public class Beer implements Serializable {
 
     public void setTimeAdded(Timestamp timeAdded) {
         this.timeAdded = timeAdded;
+    }
+    
+    @JsonIgnore
+    private Float getCleanedFloatValue(Object o) {
+        if(o instanceof String) {
+            String strVal = (String) o;
+            strVal = strVal.replaceFirst(",", ".");
+            strVal = strVal.replaceAll("[^\\d.]", "");
+            return Float.parseFloat(strVal);
+        } else if (ibuScale instanceof Float) {
+            return (Float)o; 
+        }
+        return null;
     }
 }
