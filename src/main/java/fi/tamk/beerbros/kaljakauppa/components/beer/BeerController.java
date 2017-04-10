@@ -68,4 +68,16 @@ public class BeerController {
         b = beer;
         return resourceAssembler.toResource(br.save(b));
     }
+    
+    @RequestMapping(
+            value = "/{id}",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Resource<Beer> deleteBeer(
+            @PathVariable int id) {
+        Beer b = br.findOne(id);
+        br.delete(b);
+        return resourceAssembler.toResource(b);
+    }
 }
