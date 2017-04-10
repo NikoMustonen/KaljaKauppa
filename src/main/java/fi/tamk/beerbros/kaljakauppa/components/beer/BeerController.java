@@ -66,7 +66,6 @@ public class BeerController {
             @RequestBody Beer beer) {
         Beer b = br.findOne(id);
         b = beer;
-        br.save(b);
-        return resourceAssembler.toResource(beer);
+        return resourceAssembler.toResource(br.save(b));
     }
 }
