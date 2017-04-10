@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fi.tamk.beerbros</groupId>
-    <artifactId>kaljakauppa</artifactId>
+    <artifactId>kaljakaupparedo</artifactId>
     <version>0.1.0</version>
 
     <parent>
