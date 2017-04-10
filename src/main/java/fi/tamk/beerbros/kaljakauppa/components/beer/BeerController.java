@@ -65,7 +65,10 @@ public class BeerController {
             @PathVariable int id, 
             @RequestBody Beer beer) {
         Beer b = br.findOne(id);
-        b = beer;
+        if(b != null) {
+            b = beer;
+            b.setId(id);
+        }
         return resourceAssembler.toResource(br.save(b));
     }
     
@@ -78,6 +81,6 @@ public class BeerController {
             @PathVariable int id) {
         Beer b = br.findOne(id);
         br.delete(b);
-        return resourceAssembler.toResource(b);
+        return new Resource<>(b, linkTo(BeerController.class).withRel("beers"));
     }
 }
