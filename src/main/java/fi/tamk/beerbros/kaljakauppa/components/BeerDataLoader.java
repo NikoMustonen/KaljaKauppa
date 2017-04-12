@@ -1,20 +1,16 @@
 package fi.tamk.beerbros.kaljakauppa.components;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
-import fi.tamk.beerbros.kaljakauppa.components.beer.BeerRepository;
-import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerTypeRepository;
-import fi.tamk.beerbros.kaljakauppa.components.country.CountryRepository;
-import fi.tamk.beerbros.kaljakauppa.components.manufacturer.ManufacturerRepository;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.Timestamp;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.boot.*;
 import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
+import fi.tamk.beerbros.kaljakauppa.components.beer.*;
+import fi.tamk.beerbros.kaljakauppa.components.country.*;
+import fi.tamk.beerbros.kaljakauppa.components.beertype.*;
+import fi.tamk.beerbros.kaljakauppa.components.manufacturer.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Component
 public class BeerDataLoader implements ApplicationRunner {
@@ -33,10 +29,10 @@ public class BeerDataLoader implements ApplicationRunner {
 
     private final String COUNTRY_DESCRIPTION
             = "Country called %s!";
-    
+
     private final String BEER_TYPE_DESCRIPTION
             = "%s is a beer style which is kind of like %s.";
-    
+
     private final String MANUFACTURER_DESCRIPTION
             = "%s is a beer brewing company from %s.";
 
@@ -44,7 +40,7 @@ public class BeerDataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         ObjectMapper mapper = new ObjectMapper();
         int currentIndex = 1;
-        
+
         try {
             //File file = new ClassPathResource("beers.json").getFile();
             InputStream is = new ClassPathResource("beers.json").getInputStream();
@@ -79,11 +75,11 @@ public class BeerDataLoader implements ApplicationRunner {
                 } catch (Exception e) {
                     //System.out.println("DUBLICATE VALUE!!!");
                 }
-                
+
                 printLoadingProgress(currentIndex, beers.length);
                 currentIndex++;
             }
-            
+
             System.out.println("\n\nDATABASE READY\nAPP RUNNING...\n\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,8 +87,8 @@ public class BeerDataLoader implements ApplicationRunner {
     }
 
     private void printLoadingProgress(int currentIndex, int maxIndex) {
-        int progression = (int)(((float)currentIndex / (float) maxIndex) * 100);
-        
+        int progression = (int) (((float) currentIndex / (float) maxIndex) * 100);
+
         System.out.printf("DATABASE INITIALIZING PROGRESS: %d/100", progression);
         System.out.println("");
     }
