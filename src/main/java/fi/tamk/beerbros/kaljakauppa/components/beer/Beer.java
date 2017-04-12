@@ -16,7 +16,7 @@ public class Beer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "name", length = 50, nullable = false, unique = true)
+    @Column(name = "name", length = 255, nullable = false, unique = false)
     protected String name;
 
     @ManyToOne
@@ -89,7 +89,7 @@ public class Beer implements Serializable {
     }
 
     public void setCountry(String country) {
-        this.country = new Country(country);
+        this.country = new Country(country.toLowerCase());
     }
 
     public String getImgUrl() {
@@ -137,7 +137,7 @@ public class Beer implements Serializable {
     }
 
     public void setBeerType(String beerType) {
-        this.beerType = new BeerType(beerType);
+        this.beerType = new BeerType(beerType.toLowerCase());
     }
 
     public String getPricePerLitre() {
@@ -161,7 +161,7 @@ public class Beer implements Serializable {
     }
 
     public void setManufacturer(String manufacturer) {
-        this.manufacturer = new Manufacturer(manufacturer);
+        this.manufacturer = new Manufacturer(manufacturer.toLowerCase());
     }
 
     public Float getIbuScale() {
