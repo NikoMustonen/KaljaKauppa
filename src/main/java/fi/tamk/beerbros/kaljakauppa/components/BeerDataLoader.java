@@ -11,9 +11,13 @@ import fi.tamk.beerbros.kaljakauppa.components.country.*;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.*;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 @Component
 public class BeerDataLoader implements ApplicationRunner {
+
+    @Autowired
+    Environment environment;
 
     @Autowired
     ManufacturerRepository mr;
@@ -46,7 +50,7 @@ public class BeerDataLoader implements ApplicationRunner {
             InputStream is = new ClassPathResource("beers.json").getInputStream();
             Beer[] beers = mapper.readValue(is, Beer[].class);
             System.out.println("\n\nPOPULATING DATABASE: ");
-            
+
             for (Beer b : beers) {
 
                 saveCountry(b);
@@ -63,7 +67,12 @@ public class BeerDataLoader implements ApplicationRunner {
                 printLoadingProgress(currentIndex, beers.length);
                 currentIndex++;
             }
-            System.out.println("\n\nDATABASE READY\nAPP RUNNING...\n\n");
+            System.out.println("\n\nDATABASE READY\nAPP RUNNING ON PORT...\n");
+
+            String port = environment.getProperty("server.port");
+            
+            System.out.println("Kaljakauppa site: http://localhost:" + port + "/index.html");
+            System.out.println("Kaljakauppa api: http://localhost:" + port + "/kaljakauppa\n\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

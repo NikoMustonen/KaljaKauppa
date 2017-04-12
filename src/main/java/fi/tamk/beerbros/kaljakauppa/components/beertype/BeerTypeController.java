@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/beertypes")
+@RequestMapping("/kaljakauppa/beertypes")
 public class BeerTypeController {
     
     @Autowired

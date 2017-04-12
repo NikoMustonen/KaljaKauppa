@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/beers")
+@RequestMapping("/kaljakauppa/beers")
 public class BeerController {
 
     @Autowired

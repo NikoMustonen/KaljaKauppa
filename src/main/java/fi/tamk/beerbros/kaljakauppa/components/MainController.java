@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
 public class MainController {
     
     @Autowired
     MainResourceAssembler resourceAssembler;
     
     @RequestMapping(
+            value = "/kaljakauppa",
             method = RequestMethod.GET, 
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource getMainPage() {

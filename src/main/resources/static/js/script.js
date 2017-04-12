@@ -140,7 +140,7 @@
 
                 fetchData() {
                     var that = this;
-                    fetch('http://konelandia.bounceme.net/beers', {
+                    fetch('http://localhost:8888/kaljakauppa/beers', {
                             headers: {
                                 'Content-Type': 'application/json'
                             },
