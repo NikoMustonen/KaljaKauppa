@@ -104,4 +104,18 @@ public class BeerDataLoader implements ApplicationRunner {
             cr.save(c);
         }                  
     }
+    
+    private void saveManufacturer(Beer b) {
+        final String manuDesc = String.format(
+                        MANUFACTURER_DESCRIPTION,
+                        b.getManufacturer().getName(),
+                        b.getCountry().getName());
+        
+        Manufacturer m = b.getManufacturer();
+
+        if(mr.findOne(m.getName()) == null) {
+            m.setDescription(manuDesc);
+            mr.save(m);
+        } 
+    }
 }
