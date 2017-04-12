@@ -118,4 +118,17 @@ public class BeerDataLoader implements ApplicationRunner {
             mr.save(m);
         } 
     }
+    
+    private void saveBeerType(Beer b) {
+        final String typeDesc = String.format(
+                        BEER_TYPE_DESCRIPTION,
+                        b.getBeerType().getName(),
+                        b.getBeerType().getName());
+        BeerType bt = b.getBeerType();
+
+        if(btr.findOne(bt.getName()) == null) {
+            bt.setDescription(typeDesc);
+            btr.save(bt);
+        } 
+    }
 }
