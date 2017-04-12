@@ -92,4 +92,16 @@ public class BeerDataLoader implements ApplicationRunner {
         System.out.printf("DATABASE INITIALIZING PROGRESS: %d/100", progression);
         System.out.println("");
     }
+    
+    private void saveCountry(Beer b) {
+        final String countryDesc = String.format(
+                        COUNTRY_DESCRIPTION,
+                        b.getCountry().getName());
+        Country c = b.getCountry();
+
+        if(cr.findOne(c.getName()) == null) {
+            c.setDescription(countryDesc);
+            cr.save(c);
+        }                  
+    }
 }
