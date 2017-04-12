@@ -84,7 +84,7 @@ public class BeerDataLoader implements ApplicationRunner {
                 currentIndex++;
             }
             
-            System.out.println("\n\nDATABASE READY\nAPP RUNNING...\n\n");
+            System.out.println("\n\nDATABASE READY\nAPP RUNNING ON PORT: 8888\n\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
