@@ -63,7 +63,6 @@ public class BeerDataLoader implements ApplicationRunner {
                 printLoadingProgress(currentIndex, beers.length);
                 currentIndex++;
             }
-
             System.out.println("\n\nDATABASE READY\nAPP RUNNING...\n\n");
         } catch (IOException e) {
             e.printStackTrace();
