@@ -47,27 +47,9 @@ public class BeerDataLoader implements ApplicationRunner {
             Beer[] beers = mapper.readValue(is, Beer[].class);
             for (Beer b : beers) {
 
-                String manuDesc = String.format(
-                        MANUFACTURER_DESCRIPTION,
-                        b.getManufacturer().getName(),
-                        b.getCountry().getName());
-
-                String typeDesc = String.format(
-                        BEER_TYPE_DESCRIPTION,
-                        b.getBeerType().getName(),
-                        b.getBeerType().getName());
-
-                String countryDesc = String.format(
-                        COUNTRY_DESCRIPTION,
-                        b.getCountry().getName());
-
-                b.getManufacturer().setDescription(manuDesc);
-                b.getBeerType().setDescription(typeDesc);
-                b.getCountry().setDescription(countryDesc);
-
-                mr.save(b.getManufacturer());
-                cr.save(b.getCountry());
-                btr.save(b.getBeerType());
+                saveCountry(b);
+                saveBeerType(b);
+                saveManufacturer(b);
 
                 try {
                     b.setTimeAdded(new Timestamp(System.currentTimeMillis()));
