@@ -10,7 +10,7 @@
 	"beerType": "erikoisuus",
 	"pricePerLitre": "15.06&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Aablu O&Ucirc;",
+	"manufacturer": "Aablu Ou",
 	"ibuScale": "15.0&nbsp;EBU",
 	"platoScale": "13.0&nbsp;&deg;P",
 	"ebc": "20.0&nbsp;EBC"
@@ -26,7 +26,7 @@
 	"beerType": "ale",
 	"pricePerLitre": "15.09&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Aablu O&Ucirc;",
+	"manufacturer": "Aablu Ou",
 	"ibuScale": "25.0&nbsp;EBU",
 	"platoScale": "14.0&nbsp;&deg;P",
 	"ebc": "36.0&nbsp;EBC"
@@ -42,7 +42,7 @@
 	"beerType": "vehnäolut",
 	"pricePerLitre": "14.79&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Aablu O&Ucirc;",
+	"manufacturer": "Aablu Ou",
 	"ibuScale": "25.0&nbsp;EBU",
 	"platoScale": "12.0&nbsp;&deg;P",
 	"ebc": "22.0&nbsp;EBC"
@@ -688,7 +688,7 @@
 	"ebc": "37.7&nbsp;EBC"
 },
 {
-	"name": "Bi&egrave;re de St. Nicolas",
+	"name": "Biere de St. Nicolas",
 	"country": "Ranska",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/907524/product.jpg",
 	"price": "4,90",
@@ -768,7 +768,7 @@
 	"ebc": "119.0&nbsp;EBC"
 },
 {
-	"name": "Birrificio del Ducato Vieille Ville Barriqu&eacute;e",
+	"name": "Birrificio del Ducato Vieille Ville Barriquee",
 	"country": "Italia",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/796727/product.jpg",
 	"price": "21,50",
@@ -960,7 +960,7 @@
 	"ebc": "8.0&nbsp;EBC"
 },
 {
-	"name": "Borg Gar&uacute;n nro. 19 Icelandic Stout",
+	"name": "Borg Garun nro. 19 Icelandic Stout",
 	"country": "Islanti",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/928604/product.jpg",
 	"price": "6,30",
@@ -970,7 +970,7 @@
 	"beerType": "stout & porter",
 	"pricePerLitre": "19.09&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Borg Bruggh&uacute;s",
+	"manufacturer": "Borg Brugghus",
 	"ibuScale": "36.7&nbsp;EBU",
 	"platoScale": "23.6&nbsp;&deg;P",
 	"ebc": "100.0&nbsp;EBC"
@@ -986,7 +986,7 @@
 	"beerType": "stout & porter",
 	"pricePerLitre": "15.73&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Borg Bruggh&uacute;s",
+	"manufacturer": "Borg Brugghus",
 	"ibuScale": "39.8&nbsp;EBU",
 	"platoScale": "15.5&nbsp;&deg;P",
 	"ebc": "97.8&nbsp;EBC"
@@ -1295,7 +1295,7 @@
 	"ebc": "10.7&nbsp;EBC"
 },
 {
-	"name": "Brunehaut Ambr&eacute;e Bio Gluten Free",
+	"name": "Brunehaut Ambree Bio Gluten Free",
 	"country": "Belgia",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/749064/product.jpg",
 	"price": "3,28",
@@ -1327,7 +1327,7 @@
 	"ebc": "13.9&nbsp;EBC"
 },
 {
-	"name": "Bryggeri Ros&egrave;",
+	"name": "Bryggeri Rose",
 	"country": "Suomi",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/922784/product.jpg",
 	"price": "3,89",
@@ -1561,7 +1561,7 @@
 	"beerType": "erikoisuus",
 	"pricePerLitre": "13.27&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Bi&egrave;res de Chimay",
+	"manufacturer": "Bieres de Chimay",
 	"ibuScale": "16.9&nbsp;EBU",
 	"platoScale": "18.7&nbsp;&deg;P",
 	"ebc": "64.6&nbsp;EBC"
@@ -1583,7 +1583,7 @@
 	"ebc": "60.9&nbsp;EBC"
 },
 {
-	"name": "Chimay Grande R&eacute;serve 2014",
+	"name": "Chimay Grande Reserve 2014",
 	"country": "Belgia",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/731197/product.jpg",
 	"price": "14,99",
@@ -1855,7 +1855,7 @@
 	"ebc": "274.0&nbsp;EBC"
 },
 {
-	"name": "Cuv&eacute;e des Jacobins Rouge",
+	"name": "Cuvee des Jacobins Rouge",
 	"country": "Belgia",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/736454/product.jpg",
 	"price": "3,98",
@@ -3439,7 +3439,7 @@
 	"ebc": "10.9&nbsp;EBC"
 },
 {
-	"name": "Holba Ser&aacute;k Special",
+	"name": "Holba Serak Special",
 	"country": "Tsekki",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/783586/product.jpg",
 	"price": "3,30",
@@ -3742,7 +3742,7 @@
 	"ebc": "88.0&nbsp;EBC"
 },
 {
-	"name": "Iso-Kallan Bi&egrave;re de Garde",
+	"name": "Iso-Kallan Biere de Garde",
 	"country": "Suomi",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/749756/product.jpg",
 	"price": "5,66",
@@ -3998,7 +3998,7 @@
 	"ebc": "27.0&nbsp;EBC"
 },
 {
-	"name": "Kallio Brewery & Birra Amiata Mad&aacute;h&agrave;n Tropical Milk IPA",
+	"name": "Kallio Brewery & Birra Amiata Madah&agrave;n Tropical Milk IPA",
 	"country": "Suomi",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/729464/product.jpg",
 	"price": "5,34",
@@ -5148,7 +5148,7 @@
 	"ebc": "13.0&nbsp;EBC"
 },
 {
-	"name": "La Socarrada Er Boquer&oacute;n",
+	"name": "La Socarrada Er Boqueron",
 	"country": "Espanja",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/766314/product.jpg",
 	"price": "3,98",
@@ -5916,7 +5916,7 @@
 	"ebc": "26.4&nbsp;EBC"
 },
 {
-	"name": "Mateo & Bernab&eacute; and friends 11 Bernab&eacute;",
+	"name": "Mateo & Bernabe and friends 11 Bernabe",
 	"country": "Espanja",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/711226/product.jpg",
 	"price": "10,11",
@@ -5926,12 +5926,12 @@
 	"beerType": "ale",
 	"pricePerLitre": "20.22&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Mateo y Bernab&eacute; Alimentos Artesanos",
+	"manufacturer": "Mateo y Bernabe Alimentos Artesanos",
 	"ibuScale": "28.0&nbsp;EBU",
 	"ebc": "10.0&nbsp;EBC"
 },
 {
-	"name": "Mateo & Bernab&eacute; and friends 21 Mateo",
+	"name": "Mateo & Bernabe and friends 21 Mateo",
 	"country": "Espanja",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/708886/product.jpg",
 	"price": "10,11",
@@ -5941,12 +5941,12 @@
 	"beerType": "vehnäolut",
 	"pricePerLitre": "20.22&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Mateo y Bernab&eacute; Alimentos Artesanos",
+	"manufacturer": "Mateo y Bernabe Alimentos Artesanos",
 	"ibuScale": "12.0&nbsp;EBU",
 	"ebc": "8.0&nbsp;EBC"
 },
 {
-	"name": "Mateo & Bernab&eacute; and friends 25 Santiago",
+	"name": "Mateo & Bernabe and friends 25 Santiago",
 	"country": "Espanja",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/759536/product.jpg",
 	"price": "10,11",
@@ -5956,12 +5956,12 @@
 	"beerType": "ale",
 	"pricePerLitre": "20.22&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Mateo y Bernab&eacute; Alimentos Artesanos",
+	"manufacturer": "Mateo y Bernabe Alimentos Artesanos",
 	"ibuScale": "26.0&nbsp;EBU",
 	"ebc": "34.0&nbsp;EBC"
 },
 {
-	"name": "Mateo & Bernab&eacute; Little Bichos Manta",
+	"name": "Mateo & Bernabe Little Bichos Manta",
 	"country": "Espanja",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/927884/product.jpg",
 	"price": "4,92",
@@ -5971,7 +5971,7 @@
 	"beerType": "ale",
 	"pricePerLitre": "14.91&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Mateo & Bernab&eacute;",
+	"manufacturer": "Mateo & Bernabe",
 	"ibuScale": "65.0&nbsp;EBU",
 	"platoScale": "16.0&nbsp;&deg;P",
 	"ebc": "33.0&nbsp;EBC"
@@ -6582,7 +6582,7 @@
 	"ebc": "260.0&nbsp;EBC"
 },
 {
-	"name": "Novopack&eacute; Pivo Podkrkono&scaron;sk&yacute; Speci&aacute;l",
+	"name": "Novopacke Pivo Podkrkono&scaron;sky Special",
 	"country": "Tsekki",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/754626/product.jpg",
 	"price": "2,87",
@@ -6592,13 +6592,13 @@
 	"beerType": "tumma lager",
 	"pricePerLitre": "5.54&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Nov&aacute; Paka",
+	"manufacturer": "Nova Paka",
 	"ibuScale": "27.1&nbsp;EBU",
 	"platoScale": "13.3&nbsp;&deg;P",
 	"ebc": "86.6&nbsp;EBC"
 },
 {
-	"name": "Novopack&eacute; Pivo Vald&scaron;tejn",
+	"name": "Novopacke Pivo Vald&scaron;tejn",
 	"country": "Tsekki",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/719776/product.jpg",
 	"price": "3,49",
@@ -6608,7 +6608,7 @@
 	"beerType": "vahva lager",
 	"pricePerLitre": "6.78&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Pivovar Nov&aacute; Paka",
+	"manufacturer": "Pivovar Nova Paka",
 	"ibuScale": "31.2&nbsp;EBU",
 	"platoScale": "15.3&nbsp;&deg;P",
 	"ebc": "13.4&nbsp;EBC"
@@ -7014,7 +7014,7 @@
 	"ebc": "8.25&nbsp;EBC"
 },
 {
-	"name": "Page 24 R&eacute;serve Hildegarde Blonde",
+	"name": "Page 24 Reserve Hildegarde Blonde",
 	"country": "Ranska",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/738814/product.jpg",
 	"price": "3,89",
@@ -7030,7 +7030,7 @@
 	"ebc": "11.4&nbsp;EBC"
 },
 {
-	"name": "Pardubick&yacute; Taxis",
+	"name": "Pardubicky Taxis",
 	"country": "Tsekki",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/711546/product.jpg",
 	"price": "3,35",
@@ -7142,7 +7142,7 @@
 	"ebc": "43.3&nbsp;EBC"
 },
 {
-	"name": "Pern&scaron;tejn Gran&aacute;t",
+	"name": "Pern&scaron;tejn Granat",
 	"country": "Tsekki",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/773846/product.jpg",
 	"price": "3,28",
@@ -7158,7 +7158,7 @@
 	"ebc": "90.7&nbsp;EBC"
 },
 {
-	"name": "Pern&scaron;tejn Svetl&yacute; LeÅ¾&aacute;k",
+	"name": "Pern&scaron;tejn Svetly LeÅ¾ak",
 	"country": "Tsekki",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/742146/product.jpg",
 	"price": "2,99",
@@ -7376,7 +7376,7 @@
 	"beerType": "pils",
 	"pricePerLitre": "6.38&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Plzensk&yacute; Prazdroj",
+	"manufacturer": "Plzensky Prazdroj",
 	"ibuScale": "30.7&nbsp;EBU",
 	"platoScale": "11.8&nbsp;&deg;P",
 	"ebc": "11.3&nbsp;EBC"
@@ -7392,7 +7392,7 @@
 	"beerType": "pils",
 	"pricePerLitre": "5.86&nbsp;EUR",
 	"packageType": "tölkki",
-	"manufacturer": "Plzensk&yacute; Prazdroj",
+	"manufacturer": "Plzensky Prazdroj",
 	"ibuScale": "30.7&nbsp;EBU",
 	"platoScale": "11.8&nbsp;&deg;P",
 	"ebc": "11.3&nbsp;EBC"
@@ -7456,7 +7456,7 @@
 	"beerType": "vahva lager",
 	"pricePerLitre": "7.18&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Prim&aacute;tor",
+	"manufacturer": "Primator",
 	"ibuScale": "29.6&nbsp;EBU",
 	"platoScale": "16.4&nbsp;&deg;P",
 	"ebc": "18.4&nbsp;EBC"
@@ -7472,7 +7472,7 @@
 	"beerType": "lager",
 	"pricePerLitre": "6.1&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Prim&aacute;tor",
+	"manufacturer": "Primator",
 	"ibuScale": "27.8&nbsp;EBU",
 	"platoScale": "11.5&nbsp;&deg;P",
 	"ebc": "12.6&nbsp;EBC"
@@ -8836,7 +8836,7 @@
 	"ebc": "14.4&nbsp;EBC"
 },
 {
-	"name": "Schmucker Ros&eacute; Bock",
+	"name": "Schmucker Rose Bock",
 	"country": "Saksa",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/725426/product.jpg",
 	"price": "4,18",
@@ -9128,7 +9128,7 @@
 	"beerType": "lager",
 	"pricePerLitre": "6.73&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Cervecer&iacute;a Moctezuma",
+	"manufacturer": "Cerveceria Moctezuma",
 	"ibuScale": "11.9&nbsp;EBU",
 	"platoScale": "10.7&nbsp;&deg;P",
 	"ebc": "8.4&nbsp;EBC"
@@ -10620,7 +10620,7 @@
 	"ebc": "53.5&nbsp;EBC"
 },
 {
-	"name": "Velkopopovick&yacute; Kozel Dark",
+	"name": "Velkopopovicky Kozel Dark",
 	"country": "Tsekki",
 	"imgUrl": "//cdn.alko.fi/ProductImages/Scaled/009772/product.jpg",
 	"price": "3,19",
@@ -10630,7 +10630,7 @@
 	"beerType": "tumma lager",
 	"pricePerLitre": "6.18&nbsp;EUR",
 	"packageType": "pullo",
-	"manufacturer": "Plzensk&yacute; Prazdroj",
+	"manufacturer": "Plzensky Prazdroj",
 	"ibuScale": "11.3&nbsp;EBU",
 	"platoScale": "9.6&nbsp;&deg;P",
 	"ebc": "72.5&nbsp;EBC"
