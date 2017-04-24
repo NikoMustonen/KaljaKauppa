@@ -1,190 +1,228 @@
 (function() {
-            class SearchBar extends React.Component {
-                constructor(props) { super(props); }
+    const filterItems = ['name', 'description', 'country.name', 'manufacturer.name', 'beerType.name'];
 
-                render() {
-                    return (
-                        <form>
-                            <label>
-                              Search:
-                                <input
-                                    type="text"
-                                    value={this.props.value}
-                                    onChange={this.props.onChange} />
-                            </label>
-                        </form>
-                    )
-                }
+    function flatten(obj) {
+        var root = {};
+        (function tree(obj, index) {
+            var suffix = toString.call(obj) == "[object Array]" ? "]" : "";
+            for (var key in obj) {
+                if (!obj.hasOwnProperty(key)) continue;
+                root[index + key + suffix] = obj[key];
+                if (toString.call(obj[key]) == "[object Array]") tree(obj[key], index + key + suffix + "[");
+                if (toString.call(obj[key]) == "[object Object]") tree(obj[key], index + key + suffix + ".");
             }
+        })(obj, "");
+        return root;
+    }
 
-            class ProductRow extends React.Component {
-                constructor(props) {
-                    super(props);
-                    //this.modifying = this.modifying.bind(this);
-                    this.mark = this.mark.bind(this);
-                }
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
-                mark(str) {
-                    var bits = [], node = [], i;
+    class BeerNode extends React.Component {
+        constructor(props) {
+            super(props);
 
-                    bits = str.toString().split(this.props.filter);
+            this.mark = this.mark.bind(this);
+            this.format = this.format.bind(this);
+        }
 
-                    if (bits.length === 1) {
-                        if (bits[0] === this.props.filter) {
-                            node.push(<mark>{this.props.filter}</mark>);
-                        } else {
-                            node.push(bits);
-                        }
+        format() {
+
+        }
+
+        mark(str, test) {
+            var bits = [], node = [], i, visible = false;
+
+            if (test !== "" && test !== null && test !== undefined) {
+                bits = str.toString().split(test);
+
+                if (bits.length === 1) {
+                    if (bits[0] === test) {
+                        node.push(<mark>{test}</mark>);
                     } else {
-                        for (i = 0; i < bits.length - 1; i++) {
-                            node.push(bits[i]);
-                            node.push(<mark>{this.props.filter}</mark>);
-                        }
-
-                        node.push(bits[bits.length - 1]);
+                        node.push(bits);
                     }
-
-                    return <p>{node}</p>;
+                } else {
+                    for (i = 0; i < bits.length - 1; i++) {
+                        node.push(bits[i]);
+                        node.push(<mark>{test}</mark>);
+                    }
+                    node.push(bits[bits.length - 1]);
                 }
 
-                render() {
-                    var row = [], imageRegex = /^\/\/.*([0-9]{6}).*product.jpg$/, dateobj, dateRegex = /^[0-9]{10,}$/g;
+                return node;
+            } else {
+                return str;
+            }
+        }
 
-                    row = this.props.data.map((str) => {
+        render() {
+            let test = this.props.filter,
+                data = this.props.data,
+                updated = {},
+                price;
 
-                        if (str === null) {
-                            return;
-                        }
+            updated.name = data.name;
+            updated.description = data.description;
 
-                        if (typeof str === 'object') {
-                            if (str.hasOwnProperty('name') && str.hasOwnProperty('description')) {
-                                return <td>{this.mark(str.name)}<br/>{this.mark(str.description)}</td>
-                            }
-                            return;
-                        }
+            updated.imgUrl = "images/" + data.imgUrl.match(/^\/\/.*([0-9]{6}).*product.jpg$/)[1] + ".jpg";
+            updated.timeAdded = (new Date(data.timeAdded)).toString();
+            updated.beerType = data.beerType.name;
+            updated.country = data.country.name;
+            updated.manufacturer = data.manufacturer.name;
+            price = data.price + " €";
 
-                        if(typeof str === 'string' && str.match(imageRegex) !== null) {
-                            return <img src={"images/" + str.match(imageRegex)[1] + ".jpg"}/>;
-                        }
 
-                        if (typeof str === 'number' && str.toString().match(dateRegex) !== null) {
-                            dateobj = new Date(str);
-                            return <td><p>{dateobj.toString()}</p></td>
-                        }
+            if (data.pricePerLitre !== null && data.pricePerLitre !== undefined) {
+                updated.price = <span>{price}<br/>{parseFloat(data.pricePerLitre) + " €/l"}</span>;
+            } else {
+                updated.price = <span>{price}</span>;
+            }
 
-                        if (this.props.filter === "") {
-                            return <td><p>{str}</p></td>;
-                        }
+            return (
+                <div className="beernode">
+                    <div className="beerimage">
+                        <img src={updated.imgUrl}/>
+                        <div className="priceBase">{updated.price}</div>
+                    </div>
+                    <h3>{this.mark(updated.name, test)}</h3>
+                    <h4>{this.mark(updated.beerType, test)} | {this.mark(updated.country, test)}</h4>
+                    <p>{this.mark(updated.description, test)}</p>
+                    <p>{this.mark(updated.manufacturer, test)}</p>
+                </div>
+                )
+            }
+        }
 
-                        return <td><p>{this.mark(str)}</p></td>;
-                    });
 
-                    return <tr>{row}</tr>;
+    class BeerList extends React.Component {
+        constructor(props) {
+            super(props);
+            this.checkFilter = this.checkFilter.bind(this);
+        }
+
+        checkFilter(node) {
+            let filter = this.props.filter,
+                flat,
+                found = false;
+
+            if (filter === "") return true;
+
+            flat = flatten(node);
+
+            for (let key of filterItems) {
+                if (flat.hasOwnProperty(key)) {
+                    if (flat[key].toString().search(filter) !== -1 ) {
+                        found = true;
+                        break;
+                    }
                 }
             }
 
-            class ProductTable extends React.Component {
-                constructor(props) { super(props); }
+            return found;
+        }
 
-                render() {
-                    var rows = [], test, content = [], hasFilter, data = [], headers = [];
+        render() {
+            let data = this.props.data,
+                listed = [],
+                update;
 
-                    test = this.props.filter;
-                    data = this.props.data;
+            listed = [];
 
-                    headers = Object.keys(data[0]).map((str) => {
-                        return <th>{str}</th>;
-                    });
-
-                    headers.pop();
-
-                    for (let rowData of data) {
-                        content = Object.values(rowData);
-                        hasFilter = false;
-
-                        for (let columnData of content) {
-                            if (typeof columnData === 'string') {
-                                if (columnData.toString().search(test) !== -1 ) {
-                                    hasFilter = true;
-                                }
-                            }
-                            if (typeof columnData === 'object' && columnData !== null) {
-                                if (columnData.hasOwnProperty('name') && columnData.hasOwnProperty('description')) {
-                                    if (columnData.name.toString().search(test) !== -1 || columnData.description.toString().search(test) !== -1) {
-                                        hasFilter = true;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (hasFilter) {
-                            rows.push(<ProductRow data={content} filter={test} modify={this.props.modify}/>);
-                        }
-                    }
-
-                    return <table class="shoptable"><thead><tr>{headers}</tr></thead><tbody>{rows}</tbody></table>;
+            for (let beer of data) {
+                update = this.checkFilter(beer);
+                if(update) {
+                    console.log()
+                    listed.push(<BeerNode
+                        data={beer}
+                        filter={this.props.filter}
+                        />)
                 }
             }
 
-            class MyApp extends React.Component {
-                constructor(props) {
-                    super(props);
+            return <div className="beerlist">{listed}</div>;
+        }
+    }
 
-                    this.state = {'doneLoading': false, 'searchText': ""};
+    class SearchBar extends React.Component {
+        constructor(props) { super(props); }
 
-                    this.handleSearchChange = this.handleSearchChange.bind(this);
-                    this.fetchData = this.fetchData.bind(this);
-                    this.handleModify = this.handleModify.bind(this);
-                    this.fetchData();
-                };
+        render() {
+            return (
+                <form>
+                    <label>
+                      Search:
+                        <input
+                            type="text"
+                            value={this.props.value}
+                            onChange={this.props.onChange} />
+                    </label>
+                </form>
+            )
+        }
+    }
 
-                fetchData() {
-                    var that = this;
-                    fetch('http://localhost:8888/kaljakauppa/beers', {
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            method: 'GET'
-                    })
-                    .then(function(response) {
-                        return response.json();
-                    })
-                    .then(function(myJSON) {
-                        that.setState({'doneLoading': true, 'data': myJSON._embedded.beers });
-                    });
-                }
+    class MyApp extends React.Component {
+        constructor(props) {
+            super(props);
 
-                handleSearchChange(event) {
-                    this.setState({'searchText': event.target.value });
-                }
+            this.state = {'doneLoading': false, 'searchText': ""};
 
-                handleModify(id) {
-                    var data = this.state.data;
+            this.handleSearchChange = this.handleSearchChange.bind(this);
+            this.fetchData = this.fetchData.bind(this);
+            this.handleModify = this.handleModify.bind(this);
+            this.fetchData();
+        };
 
-                    data = data.filter((el) => {
-                        return el.id !== id;
-                    })
+        fetchData() {
+            var that = this;
 
-                    this.setState({'data': data});
-                }
+            fetch('http://konelandia.bounceme.net/kaljakauppa/beers', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'GET'
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJSON) {
+                that.setState({'doneLoading': true, 'data': myJSON._embedded.beers });
+            });
+        }
 
-                render() {
-                    if(this.state.doneLoading) {
-                        return (
-                            <div>
-                                <h1>Kaljakauppa</h1>
-                                <SearchBar value={this.state.searchText} onChange={this.handleSearchChange}/>
-                                <ProductTable data={this.state.data} filter={this.state.searchText} modify={this.handleModify}/>
-                            </div>
-                        )
-                    }
-                    return <h1>Loading...</h1>;
-                }
+        handleSearchChange(event) {
+            this.setState({'searchText': event.target.value });
+        }
+
+        handleModify(id) {
+            var data = this.state.data;
+
+            data = data.filter((el) => {
+                return el.id !== id;
+            })
+
+            this.setState({'data': data});
+        }
+
+        render() {
+            if(this.state.doneLoading) {
+                return (
+                    <div>
+                        <h1>Kaljakauppa</h1>
+                        <SearchBar value={this.state.searchText} onChange={this.handleSearchChange}/>
+                        <BeerList data={this.state.data} filter={this.state.searchText} modify={this.handleModify}/>
+                    </div>
+                )
             }
+            return <h1>Loading...</h1>;
+        }
+    }
 
 
-            ReactDOM.render(
-                <MyApp/>,
-                document.getElementById('root')
-            );
+    ReactDOM.render(
+        <MyApp/>,
+        document.getElementById('root')
+    );
 }());
