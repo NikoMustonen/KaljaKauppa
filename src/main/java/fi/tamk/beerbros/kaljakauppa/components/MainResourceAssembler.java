@@ -1,5 +1,8 @@
 package fi.tamk.beerbros.kaljakauppa.components;
 
+import fi.tamk.beerbros.kaljakauppa.components.beer.BeerController;
+import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerTypeController;
+import fi.tamk.beerbros.kaljakauppa.components.manufacturer.ManufacturerController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -12,9 +15,9 @@ public class MainResourceAssembler
     @Override
     public Resource<Object> toResource(Object t) {
         Resource<Object> resource = new Resource<>(t);
-        resource.add(linkTo(MainController.class).slash("beers").withRel("beers"));
-        resource.add(linkTo(MainController.class).slash("beertypes").withRel("beertypes"));
-        resource.add(linkTo(MainController.class).slash("countries").withRel("countries"));
+        resource.add(linkTo(BeerController.class).withRel("beers"));
+        resource.add(linkTo(BeerTypeController.class).withRel("beertypes"));
+        resource.add(linkTo(ManufacturerController.class).withRel("countries"));
         return resource;
     }
 

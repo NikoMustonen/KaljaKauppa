@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/countries")
+@RequestMapping("/kaljakauppa/countries")
 public class CountryController {
 
     @Autowired
