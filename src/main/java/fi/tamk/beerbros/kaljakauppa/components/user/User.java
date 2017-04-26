@@ -38,6 +38,9 @@ public class User implements Serializable {
     @Column(name = "area_code", nullable = false)
     private String areaCode;
     
+    @Column(name = "is_admin", nullable = false)
+    private boolean isAdmin;
+    
     public User() {}
     
     public User(Integer id) {this.id = id;}
@@ -120,5 +123,13 @@ public class User implements Serializable {
 
     public void setAreaCode(String areaCode) {
         this.areaCode = areaCode;
+    }
+
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }
