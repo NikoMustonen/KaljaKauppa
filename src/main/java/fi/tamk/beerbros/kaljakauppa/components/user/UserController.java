@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/kaljakauppa/users")
@@ -69,6 +70,29 @@ public class UserController {
     public Resource<User> deleteUserById(@PathVariable int id) {
         User u = ur.findOne(id);
         ur.delete(id);
+        return this.resourceAssembler.toResource(u);
+    }
+    
+    @RequestMapping(
+            value = "/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Resource<User> modifyUserById(@PathVariable int id, @RequestBody User user) {
+        
+        User u = ur.findOne(id);
+        u.setFirstName(user.getFirstName());
+        u.setLastName(user.getLastName());
+        u.setUsername(user.getUsername());
+        u.setPassword(user.getPassword());
+        u.setPhone(user.getPhone());
+        u.setEmail(user.getEmail());
+        u.setStreet(user.getStreet());
+        u.setCity(user.getCity());
+        u.setAreaCode(user.getAreaCode());
+        ur.save(u);
+        
         return this.resourceAssembler.toResource(u);
     }
 }
