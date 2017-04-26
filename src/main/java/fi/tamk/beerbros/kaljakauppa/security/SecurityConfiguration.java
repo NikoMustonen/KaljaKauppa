@@ -21,7 +21,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         HttpMethod.GET,
                         "/",
                         "/*",
-                        "/**/*",
+                        "/**/*.html",
+                        "/**/*.js",
+                        "/**/*.css",
+                        "/**/*.jpg",
                         "/kaljakauppa",
                         "/kaljakauppa/beers",
                         "/kaljakauppa/beers/*",
@@ -50,7 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/kaljakauppa/beertypes/*/*/*/*/*")
                 .permitAll()
                 .antMatchers(
-                        HttpMethod.POST, LOGIN_URL)
+                        HttpMethod.POST, 
+                        LOGIN_URL,
+                        "/kaljakauppa/users")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
