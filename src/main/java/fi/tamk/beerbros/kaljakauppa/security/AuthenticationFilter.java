@@ -9,16 +9,16 @@ import java.io.IOException;
 
 public class AuthenticationFilter extends GenericFilterBean {
 
-  @Override
-  public void doFilter(ServletRequest request,
-             ServletResponse response,
-             FilterChain filterChain)
-      throws IOException, ServletException {
-    Authentication auth = TokenAuthenticationService
-        .getAuthentication((HttpServletRequest)request);
+    @Override
+    public void doFilter(ServletRequest request,
+            ServletResponse response,
+            FilterChain filterChain)
+            throws IOException, ServletException {
+        Authentication auth = TokenAuthenticationService
+                .getAuthentication((HttpServletRequest) request);
 
-    SecurityContextHolder.getContext()
-        .setAuthentication(auth);
-    filterChain.doFilter(request,response);
-  }
+        SecurityContextHolder.getContext()
+                .setAuthentication(auth);
+        filterChain.doFilter(request, response);
+    }
 }
