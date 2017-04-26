@@ -10,6 +10,8 @@ import fi.tamk.beerbros.kaljakauppa.components.beer.*;
 import fi.tamk.beerbros.kaljakauppa.components.country.*;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.*;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.*;
+import fi.tamk.beerbros.kaljakauppa.components.user.User;
+import fi.tamk.beerbros.kaljakauppa.components.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
@@ -30,6 +32,9 @@ public class BeerDataLoader implements ApplicationRunner {
 
     @Autowired
     BeerRepository br;
+    
+    @Autowired
+    UserRepository ur;
 
     private final String COUNTRY_DESCRIPTION
             = "Country called %s!";
@@ -47,10 +52,17 @@ public class BeerDataLoader implements ApplicationRunner {
 
         try {
             //File file = new ClassPathResource("beers.json").getFile();
-            InputStream is = new ClassPathResource("beers.json").getInputStream();
-            Beer[] beers = mapper.readValue(is, Beer[].class);
+            InputStream isBeer = new ClassPathResource("beers.json").getInputStream();
+            InputStream isUsers = new ClassPathResource("users.json").getInputStream();
+            
+            Beer[] beers = mapper.readValue(isBeer, Beer[].class);
+            User[] users = mapper.readValue(isUsers, User[].class);
             System.out.println("\n\nPOPULATING DATABASE: ");
 
+            for(User u : users) {
+                ur.save(u);
+            }
+            
             for (Beer b : beers) {
 
                 saveCountry(b);
