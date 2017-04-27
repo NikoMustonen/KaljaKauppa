@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerType;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.Manufacturer;
 import fi.tamk.beerbros.kaljakauppa.components.country.Country;
+import fi.tamk.beerbros.kaljakauppa.components.review.Review;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 @Entity(name = "beer")
 public class Beer implements Serializable {
@@ -63,6 +65,9 @@ public class Beer implements Serializable {
     
     @Column(name = "time_added")
     private Timestamp timeAdded;
+    
+    @OneToMany(mappedBy = "beer")
+    private Collection<Review> reviews;
     
     public Beer() {}
     
@@ -207,5 +212,13 @@ public class Beer implements Serializable {
             return (Float)o; 
         }
         return null;
+    }
+
+    public Collection<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Collection<Review> reviews) {
+        this.reviews = reviews;
     }
 }
