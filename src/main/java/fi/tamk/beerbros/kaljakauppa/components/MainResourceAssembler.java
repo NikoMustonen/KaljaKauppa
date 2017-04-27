@@ -4,6 +4,7 @@ import fi.tamk.beerbros.kaljakauppa.components.beer.BeerController;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerTypeController;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.ManufacturerController;
 import fi.tamk.beerbros.kaljakauppa.components.country.CountryController;
+import fi.tamk.beerbros.kaljakauppa.components.review.ReviewController;
 import fi.tamk.beerbros.kaljakauppa.components.user.UserController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
@@ -22,6 +23,7 @@ public class MainResourceAssembler
         resource.add(linkTo(CountryController.class).withRel("countries"));
         resource.add(linkTo(ManufacturerController.class).withRel("manufacturers"));
         resource.add(linkTo(UserController.class).withRel("users"));
+        resource.add(linkTo(ReviewController.class).withRel("reviews"));
         return resource;
     }
 }

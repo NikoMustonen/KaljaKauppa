@@ -64,7 +64,6 @@ public class UserController {
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Resource<User> deleteUserById(@PathVariable int id) {
@@ -91,7 +90,7 @@ public class UserController {
         u.setStreet(user.getStreet());
         u.setCity(user.getCity());
         u.setAreaCode(user.getAreaCode());
-        ur.save(u);
+        u = ur.save(u);
         
         return this.resourceAssembler.toResource(u);
     }

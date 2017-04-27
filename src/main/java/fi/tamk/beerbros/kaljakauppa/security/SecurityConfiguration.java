@@ -19,6 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(
                         HttpMethod.GET,
+                        //Almost everything is temporarly open for business
                         "/",
                         "/*",
                         "/**/*.html",
@@ -26,12 +27,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.jpg",
                         "/kaljakauppa",
+                        "/kaljakauppa/users",
+                        "/kaljakauppa/users/**",
                         "/kaljakauppa/beers",
                         "/kaljakauppa/beers/*",
                         "/kaljakauppa/beers/*/*",
                         "/kaljakauppa/beers/*/*/*",
                         "/kaljakauppa/beers/*/*/*/*",
                         "/kaljakauppa/beers/*/*/*/*/*",
+                        "/kaljakauppa/reviews",
+                        "/kaljakauppa/reviews/*",
+                        "/kaljakauppa/reviews/*/*",
+                        "/kaljakauppa/reviews/*/*/*",
+                        "/kaljakauppa/reviews/*/*/*/*",
+                        "/kaljakauppa/reviews/*/*/*/*/*",
                         "/kaljakauppa/manufacturers",
                         "/kaljakauppa/manufacturers/*",
                         "/kaljakauppa/manufacturers/*/*",
@@ -55,7 +64,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         HttpMethod.POST, 
                         LOGIN_URL,
-                        "/kaljakauppa/users")
+                        "/kaljakauppa/users",
+                        "/kaljakauppa/reviews",             //TMP
+                        "/kaljakauppa/reviews/*",           //TMP
+                        "/kaljakauppa/reviews/*/*",         //TMP
+                        "/kaljakauppa/reviews/*/*/*",       //TMP
+                        "/kaljakauppa/reviews/*/*/*/*",     //TMP
+                        "/kaljakauppa/reviews/*/*/*/*/*")   //TMP
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
