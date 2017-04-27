@@ -1,5 +1,6 @@
 package fi.tamk.beerbros.kaljakauppa.components.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -77,6 +78,7 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    //@JsonIgnore
     public String getPassword() {
         return password;
     }
