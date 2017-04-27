@@ -48,9 +48,7 @@ public class BeerController {
         
         Beer b = br.findOne(id);
         
-        for(Review r : b.getReviews()) {
-            r.setBeer(null);
-        }
+        b.setReviews(null);
         
         return this.resourceAssembler.toResource(b);
     }

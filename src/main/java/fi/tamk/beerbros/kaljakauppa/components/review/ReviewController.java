@@ -30,6 +30,7 @@ public class ReviewController {
         List<Resource<Review>> resourceList = new ArrayList<>();
         
         for(Review r : reviews) {
+            r.getBeer().setReviews(null);
             resourceList.add(resourceAssembler.toResource(r));
         }
         
@@ -43,6 +44,7 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.OK)
     public Resource<Review> getReviewById(@PathVariable Long id) {
         Review r = rr.findOne(id);
+        r.getBeer().setReviews(null);
         return this.resourceAssembler.toResource(r);
     }
     
