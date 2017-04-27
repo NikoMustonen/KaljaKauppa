@@ -1,0 +1,35 @@
+[
+{
+    "firstName": "Jukka",
+    "lastName": "Järviö",
+    "username": "kaljahirmu69",
+    "password": "KaljaaKoneeseen1234",
+    "phone": "044-123 4565",
+    "email": "jaakko@gmail.com",
+    "street": "Tietokuja 12",
+    "city": "TAMPERE",
+    "areaCode": "33900"
+},
+{
+    "firstName": "Jalmari",
+    "lastName": "Peltola",
+    "username": "Jaltzuu",
+    "password": "BemuKulkeeKovaa",
+    "phone": "045-321 4265",
+    "email": "jallu.p@hotmail.com",
+    "street": "Lorvankatu 55",
+    "city": "Kuopio",
+    "areaCode": "12400"
+},
+{
+    "firstName": "Jaana",
+    "lastName": "Puolikuu",
+    "username": "JantsuIHQ",
+    "password": "KalsaRiKannit",
+    "phone": "045-213 9265",
+    "email": "jaana.puolikuu@hotmail.com",
+    "street": "Lettukatu 8",
+    "city": "Vantaa",
+    "areaCode": "75600"
+}
+]
