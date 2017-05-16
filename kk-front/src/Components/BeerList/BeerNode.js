@@ -15,7 +15,7 @@ class BeerNode extends Component {
     updated.name = data.name;
     updated.description = data.description;
 
-    updated.imgUrl = "images/" + data.imgUrl.match(/^\/\/.*([0-9]{6}).*product.jpg$/)[1] + ".jpg";
+    updated.imgUrl = data.imgUrl;
     updated.timeAdded = (new Date(data.timeAdded)).toString();
     updated.beerType = data.beerType.name;
     updated.country = data.country.name;
