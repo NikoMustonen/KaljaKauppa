@@ -22,6 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         //Almost everything is temporarly open for business
                         "/",
                         "/*",
+                        "/**/**/*",
+                        "/**/*",
                         "/**/*.html",
                         "/**/*.js",
                         "/**/*.css",
