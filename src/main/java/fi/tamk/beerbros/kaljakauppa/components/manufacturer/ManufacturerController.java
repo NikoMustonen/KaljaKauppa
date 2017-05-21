@@ -1,5 +1,8 @@
 package fi.tamk.beerbros.kaljakauppa.components.manufacturer;
 
+import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
+import fi.tamk.beerbros.kaljakauppa.components.beer.BeerController;
+import fi.tamk.beerbros.kaljakauppa.components.beer.BeerResourceAssembler;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class ManufacturerController {
     @Autowired
     private ManufacturerResourceAssembler resourceAssembler;
     
+    @Autowired
+    private BeerResourceAssembler beerResourceAssembler;
+    
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +54,24 @@ public class ManufacturerController {
     public Resource<Manufacturer> getManufacturerByName(@PathVariable String name) {
         Manufacturer m = mr.findOne(name);
         return this.resourceAssembler.toResource(m);
+    }
+    
+    @RequestMapping(
+            value = "/{name}/beers",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Resources<Resource<Beer>> getBeers(@PathVariable String name) {
+        Manufacturer m = mr.findOne(name);
+        Iterable<Beer> beers = mr.findAllBeerByManufacturer(m);
+        List<Resource<Beer>> beerResourceList = new ArrayList<>();
+        
+        for(Beer b : beers) {
+            b.setReviews(null);
+            beerResourceList.add(beerResourceAssembler.toResource(b));
+        }
+        
+        return new Resources<>(beerResourceList, linkTo(BeerController.class).withSelfRel());
     }
     
     @RequestMapping(
