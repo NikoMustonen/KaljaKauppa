@@ -1,6 +1,7 @@
 package fi.tamk.beerbros.kaljakauppa.components.review;
 
 import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.BadRequestException;
+import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.NotFoundException;
 import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.ReviewedAlreadyException;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class ReviewController {
     public Resource addReview(@RequestBody Review review) throws ReviewedAlreadyException, BadRequestException {
         try {
             Review r = review;
-            if(rr.findOneByUserAndBeer(r.getUser(), r.getBeer()) != null) {
+            if (rr.findOneByUserAndBeer(r.getUser(), r.getBeer()) != null) {
                 throw new ReviewedAlreadyException();
             }
             r = rr.save(review);
@@ -79,15 +80,25 @@ public class ReviewController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Resource<Review> modifyReviewById(@PathVariable Long id, @RequestBody Review review) {
+    public Resource<Review> modifyReviewById(
+            @PathVariable Long id, @RequestBody Review review)
+            throws BadRequestException, NotFoundException {
 
-        Review r = rr.findOne(id);
-        r.setRating(review.getRating());
-        r.setTitle(review.getTitle());
-        r.setText(review.getText());
-        r = rr.save(r);
-
-        return this.resourceAssembler.toResource(r);
+        try {
+            Review r = rr.findOne(id);
+            try {
+                r.setRating(review.getRating());
+                r.setTitle(review.getTitle());
+                r.setText(review.getText());
+                r = rr.save(r);
+                r.getBeer().setReviews(null);
+                return this.resourceAssembler.toResource(r);
+            } catch (Exception e) {
+                throw new BadRequestException("Review is in wrong format");
+            }
+        } catch (Exception e) {
+            throw new NotFoundException("Cannot find review with given id");
+        }
     }
 
     @RequestMapping(
@@ -95,9 +106,14 @@ public class ReviewController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Resource<Review> deleteUserById(@PathVariable Long id) {
-        Review r = rr.findOne(id);
-        rr.delete(id);
-        return this.resourceAssembler.toResource(r);
+    public Resource<Review> deleteUserById(@PathVariable Long id)
+            throws NotFoundException {
+        try {
+            Review r = rr.findOne(id);
+            rr.delete(id);
+            return this.resourceAssembler.toResource(r);
+        } catch (Exception e) {
+            throw new NotFoundException("No review with given id");
+        }
     }
 }

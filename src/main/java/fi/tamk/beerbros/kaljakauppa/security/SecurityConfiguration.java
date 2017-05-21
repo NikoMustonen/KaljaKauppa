@@ -74,6 +74,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/kaljakauppa/reviews/*/*/*/*",     //TMP
                         "/kaljakauppa/reviews/*/*/*/*/*")   //TMP
                 .permitAll()
+                .antMatchers(
+                        HttpMethod.PUT, 
+                        LOGIN_URL,
+                        "/kaljakauppa/reviews",             //TMP
+                        "/kaljakauppa/reviews/*",           //TMP
+                        "/kaljakauppa/reviews/*/*",         //TMP
+                        "/kaljakauppa/reviews/*/*/*",       //TMP
+                        "/kaljakauppa/reviews/*/*/*/*",     //TMP
+                        "/kaljakauppa/reviews/*/*/*/*/*")   //TMP
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new LoginFilter(LOGIN_URL,
