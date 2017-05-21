@@ -10,6 +10,8 @@ import fi.tamk.beerbros.kaljakauppa.components.beer.*;
 import fi.tamk.beerbros.kaljakauppa.components.country.*;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.*;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.*;
+import fi.tamk.beerbros.kaljakauppa.components.review.Review;
+import fi.tamk.beerbros.kaljakauppa.components.review.ReviewRepository;
 import fi.tamk.beerbros.kaljakauppa.components.user.User;
 import fi.tamk.beerbros.kaljakauppa.components.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import org.springframework.core.env.Environment;
 @Component
 public class BeerDataLoader implements ApplicationRunner {
 
+    @Autowired
+    ReviewRepository rr;
+    
     @Autowired
     Environment environment;
 
@@ -54,9 +59,11 @@ public class BeerDataLoader implements ApplicationRunner {
             //File file = new ClassPathResource("beers.json").getFile();
             InputStream isBeer = new ClassPathResource("beers.json").getInputStream();
             InputStream isUsers = new ClassPathResource("users.json").getInputStream();
+            InputStream isReviews = new ClassPathResource("reviews.json").getInputStream();
             
             Beer[] beers = mapper.readValue(isBeer, Beer[].class);
             User[] users = mapper.readValue(isUsers, User[].class);
+            Review[] reviews = mapper.readValue(isReviews, Review[].class);
             System.out.println("\n\nPOPULATING DATABASE: ");
 
             for(User u : users) {
@@ -79,6 +86,11 @@ public class BeerDataLoader implements ApplicationRunner {
                 printLoadingProgress(currentIndex, beers.length);
                 currentIndex++;
             }
+            
+            for(Review r : reviews) {
+                rr.save(r);
+            }
+            
             System.out.println("\n\nDATABASE READY\nAPP RUNNING ON PORT...\n");
 
             String port = environment.getProperty("server.port");

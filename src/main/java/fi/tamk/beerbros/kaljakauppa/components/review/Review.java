@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 @Entity(name = "review")
+@Table(uniqueConstraints = 
+        @UniqueConstraint(columnNames = {"user_id", "beer_id"}))
 public class Review implements Serializable {
     
     @Id

@@ -22,6 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         //Almost everything is temporarly open for business
                         "/",
                         "/*",
+                        "/**/**/*",
+                        "/**/*",
                         "/**/*.html",
                         "/**/*.js",
                         "/**/*.css",
@@ -65,6 +67,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         HttpMethod.POST, 
                         LOGIN_URL,
                         "/kaljakauppa/users",
+                        "/kaljakauppa/reviews",             //TMP
+                        "/kaljakauppa/reviews/*",           //TMP
+                        "/kaljakauppa/reviews/*/*",         //TMP
+                        "/kaljakauppa/reviews/*/*/*",       //TMP
+                        "/kaljakauppa/reviews/*/*/*/*",     //TMP
+                        "/kaljakauppa/reviews/*/*/*/*/*")   //TMP
+                .permitAll()
+                .antMatchers(
+                        HttpMethod.PUT, 
+                        LOGIN_URL,
                         "/kaljakauppa/reviews",             //TMP
                         "/kaljakauppa/reviews/*",           //TMP
                         "/kaljakauppa/reviews/*/*",         //TMP
