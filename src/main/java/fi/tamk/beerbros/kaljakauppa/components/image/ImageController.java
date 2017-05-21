@@ -1,4 +1,4 @@
-package fi.tamk.beerbros.kaljakauppa.components.manufacturer.image;
+package fi.tamk.beerbros.kaljakauppa.components.image;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/kaljakauppa/images")
 public class ImageController {
 
     @RequestMapping(
@@ -17,9 +21,12 @@ public class ImageController {
     public byte[] getImage(@PathVariable int id) {
 
         try {
-            InputStream in = this.getClass().getResourceAsStream("/images/no_image.jpg");
+            InputStream in = new ClassPathResource(
+                    "images/" + String.format("%06d", id) + ".jpg")
+                    .getInputStream();
             return IOUtils.toByteArray(in);
         } catch(IOException e) {
+            e.printStackTrace();
             return null;
         }
     }
