@@ -61,7 +61,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/kaljakauppa/beertypes/*/*",
                         "/kaljakauppa/beertypes/*/*/*",
                         "/kaljakauppa/beertypes/*/*/*/*",
-                        "/kaljakauppa/beertypes/*/*/*/*/*")
+                        "/kaljakauppa/beertypes/*/*/*/*/*",
+                        "/kaljakauppa/images/*")
                 .permitAll()
                 .antMatchers(
                         HttpMethod.POST, 
