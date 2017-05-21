@@ -88,6 +88,29 @@ public class CountryController {
     }
     
     @RequestMapping(
+            value = "/{countryName}/beertypes/{beerTypeName}/beers",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Resources<Resource<Beer>> getBeersByBeerTypeAndCountry(
+            @PathVariable String countryName,
+            @PathVariable String beerTypeName) {
+        
+        BeerType bt = new BeerType(beerTypeName);
+        Country ct = new Country(countryName);
+        
+        Iterable<Beer> beers = cr.findAllBeerByBeerTypeAndCountry(bt, ct);
+        List<Resource<Beer>> beerResourceList = new ArrayList<>();
+        
+        for(Beer b : beers) {
+            b.setReviews(null);
+            beerResourceList.add(beerResourceAssembler.toResource(b));
+        }
+        
+        return new Resources<>(beerResourceList, linkTo(BeerController.class).withSelfRel());
+    }
+    
+    @RequestMapping(
             value = "/{countryName}/beers",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,5 +1,6 @@
 package fi.tamk.beerbros.kaljakauppa.components.country;
 
+import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,4 +15,9 @@ public interface CountryRepository extends CrudRepository<Country, String>{
     public BeerType findBeerTypeByCountryAndType (
             @Param("country") Country country,
             @Param("beerType") BeerType beerType);
+    
+    @Query(value = "SELECT b FROM beer b WHERE b.beerType=:beerType AND b.country=:country")
+    public Iterable<Beer> findAllBeerByBeerTypeAndCountry(
+            @Param("beerType") BeerType beerType,
+            @Param("country") Country country);
 }

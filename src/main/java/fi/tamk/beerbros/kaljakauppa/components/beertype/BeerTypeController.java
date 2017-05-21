@@ -1,8 +1,11 @@
 package fi.tamk.beerbros.kaljakauppa.components.beertype;
 
 import fi.tamk.beerbros.kaljakauppa.components.beer.Beer;
+import fi.tamk.beerbros.kaljakauppa.components.beer.BeerController;
 import fi.tamk.beerbros.kaljakauppa.components.beer.BeerRepository;
 import fi.tamk.beerbros.kaljakauppa.components.beer.BeerResourceAssembler;
+import fi.tamk.beerbros.kaljakauppa.components.country.Country;
+import fi.tamk.beerbros.kaljakauppa.components.country.CountryResourceAssembler;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,9 @@ public class BeerTypeController {
     
     @Autowired
     BeerResourceAssembler beerResourceAssembler;
+    
+    @Autowired
+    CountryResourceAssembler cra;
     
     @RequestMapping(
             method = RequestMethod.GET,
@@ -85,10 +91,70 @@ public class BeerTypeController {
         List<Resource<Beer>> beerResources = new ArrayList<>();
         
         for(Beer b : beers) {
+            b.setReviews(null);
             beerResources.add(beerResourceAssembler.toResource(b));
         }
         
         return new Resources<>(beerResources, linkTo(BeerTypeController.class).slash(beerType).slash("beers").withSelfRel());
+    }
+    
+    @RequestMapping(
+            value = "/{beerType}/countries",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Resources<Resource<Country>> getCountriesByBeerType(
+            @PathVariable String beerType) {
+        
+        BeerType bt = btr.findOne(beerType);
+        Iterable<Country> countries = btr.findAllCountriesByBeerType(bt);
+        List<Resource<Country>> countryResources = new ArrayList<>();
+        
+        for(Country c : countries) {
+            countryResources.add(cra.toResource(c));
+        }
+        
+        return new Resources<>(countryResources, linkTo(BeerTypeController.class).slash(beerType).slash("countries").withSelfRel());
+    }
+    
+    @RequestMapping(
+            value = "/{beerTypeName}/countries/{countryName}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Resource<Country> getBeerTypeByCountry(
+            @PathVariable String countryName,
+            @PathVariable String beerTypeName) {
+        
+        Country c = btr.findCountryByCountryAndType(
+                new Country(countryName), 
+                new BeerType(beerTypeName));
+        
+        Resource<Country> resource = cra.toResource(c);
+        return resource;
+    }
+    
+    @RequestMapping(
+            value = "/{beerTypeName}/countries/{countryName}/beers",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Resources<Resource<Beer>> getBeersByBeerTypeAndCountry(
+            @PathVariable String countryName,
+            @PathVariable String beerTypeName) {
+        
+        BeerType bt = new BeerType(beerTypeName);
+        Country ct = new Country(countryName);
+        
+        Iterable<Beer> beers = btr.findAllBeerByBeerTypeAndCountry(bt, ct);
+        List<Resource<Beer>> beerResourceList = new ArrayList<>();
+        
+        for(Beer b : beers) {
+            b.setReviews(null);
+            beerResourceList.add(beerResourceAssembler.toResource(b));
+        }
+        
+        return new Resources<>(beerResourceList, linkTo(BeerController.class).withSelfRel());
     }
     
     @RequestMapping(
