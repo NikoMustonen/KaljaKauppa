@@ -19,6 +19,7 @@ public class MainResourceAssembler
     public Resource<Object> toResource(Object t) {
         Resource<Object> resource = new Resource<>(t);
         resource.add(linkTo(BeerController.class).withRel("beers"));
+        resource.add(linkTo(BeerController.class).slash("?start=" + 1 + "&step=" + 10).withRel("tenFirst"));
         resource.add(linkTo(BeerTypeController.class).withRel("beertypes"));
         resource.add(linkTo(CountryController.class).withRel("countries"));
         resource.add(linkTo(ManufacturerController.class).withRel("manufacturers"));
