@@ -21,6 +21,7 @@ public class ImageController {
     public byte[] getImage(@PathVariable int id) {
 
         try {
+            System.out.println("images/" + String.format("%06d", id) + ".jpg");
             InputStream in = new ClassPathResource(
                     "images/" + String.format("%06d", id) + ".jpg")
                     .getInputStream();
