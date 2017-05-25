@@ -37,9 +37,6 @@ public class BeerDataLoader implements ApplicationRunner {
 
     @Autowired
     BeerRepository br;
-    
-    @Autowired
-    UserRepository ur;
 
     private final String COUNTRY_DESCRIPTION
             = "Country called %s!";
@@ -58,17 +55,11 @@ public class BeerDataLoader implements ApplicationRunner {
         try {
             //File file = new ClassPathResource("beers.json").getFile();
             InputStream isBeer = new ClassPathResource("beers.json").getInputStream();
-            InputStream isUsers = new ClassPathResource("users.json").getInputStream();
             InputStream isReviews = new ClassPathResource("reviews.json").getInputStream();
             
             Beer[] beers = mapper.readValue(isBeer, Beer[].class);
-            User[] users = mapper.readValue(isUsers, User[].class);
             Review[] reviews = mapper.readValue(isReviews, Review[].class);
             System.out.println("\n\nPOPULATING DATABASE: ");
-
-            for(User u : users) {
-                ur.save(u);
-            }
             
             for (Beer b : beers) {
 

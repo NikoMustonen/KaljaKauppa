@@ -1,5 +1,6 @@
 package fi.tamk.beerbros.kaljakauppa.components.review;
 
+import fi.tamk.beerbros.kaljakauppa.components.MainResourceAssembler;
 import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.BadRequestException;
 import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.NotFoundException;
 import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.ReviewedAlreadyException;
@@ -38,8 +39,10 @@ public class ReviewController {
             r.getBeer().setReviews(null);
             resourceList.add(resourceAssembler.toResource(r));
         }
-
-        return new Resources<>(resourceList, linkTo(ReviewController.class).withSelfRel());
+        Resources<Resource<Review>> res = new Resources<>(resourceList, linkTo(ReviewController.class).withSelfRel());
+        MainResourceAssembler.addLinksToResources(res);
+        
+        return res;
     }
 
     @RequestMapping(

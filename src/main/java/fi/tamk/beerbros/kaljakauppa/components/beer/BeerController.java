@@ -1,6 +1,7 @@
 package fi.tamk.beerbros.kaljakauppa.components.beer;
 
 import com.google.common.collect.Lists;
+import fi.tamk.beerbros.kaljakauppa.components.MainResourceAssembler;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.BeerType;
 import fi.tamk.beerbros.kaljakauppa.components.country.Country;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.Manufacturer;
@@ -90,7 +91,7 @@ public class BeerController {
                 resources.add(linkTo(BeerController.class).slash("?start=" + nextFirst + "&step=" + step).withRel("next"));
             }
         }
-
+        MainResourceAssembler.addLinksToResources(resources);
         return resources;
     }
 
@@ -103,8 +104,8 @@ public class BeerController {
         Beer b = br.findOne(id);
 
         b.setReviews(null);
-
-        return this.resourceAssembler.toResource(b);
+        Resource r = this.resourceAssembler.toResource(b);
+        return r;
     }
 
     @RequestMapping(

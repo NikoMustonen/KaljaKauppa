@@ -14,15 +14,15 @@ public class Review implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, unique = true)
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
     private User user;
     
     @ManyToOne
-    @JoinColumn(name = "beer_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "beer_id", referencedColumnName = "id", nullable = false, updatable = false)
     private Beer beer;
     
     @Column(name = "rating", nullable = false)

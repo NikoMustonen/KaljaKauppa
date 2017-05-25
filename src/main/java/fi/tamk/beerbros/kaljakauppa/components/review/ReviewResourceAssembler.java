@@ -14,7 +14,7 @@ public class ReviewResourceAssembler
     @Override
     public Resource<Review> toResource(Review r) {
         Resource<Review> resource = new Resource<>(r);
-        resource.add(linkTo(BeerController.class).slash(r.getBeer().getId()).slash("reviews").slash(r.getId()).withSelfRel());
+        resource.add(linkTo(ReviewController.class).slash(r.getId()).withSelfRel());
         resource.add(linkTo(BeerController.class).slash(r.getBeer().getId()).slash("reviews").withRel("reviewsOfCurrentBeer"));
         resource.add(linkTo(ReviewController.class).withRel("reviews"));
         resource.add(linkTo(BeerController.class).slash(r.getBeer().getId()).withRel("beer"));

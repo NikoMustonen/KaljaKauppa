@@ -1,5 +1,6 @@
 package fi.tamk.beerbros.kaljakauppa.components.country;
 
+import fi.tamk.beerbros.kaljakauppa.components.MainResourceAssembler;
 import fi.tamk.beerbros.kaljakauppa.components.beer.*;
 import fi.tamk.beerbros.kaljakauppa.components.beertype.*;
 import java.util.*;
@@ -41,7 +42,10 @@ public class CountryController {
             resourceList.add(resourceAssembler.toResource(c));
         }
         
-        return new Resources<>(resourceList, linkTo(CountryController.class).withSelfRel());
+        Resources<Resource<Country>> res = new Resources<>(resourceList, linkTo(CountryController.class).withSelfRel());
+        MainResourceAssembler.addLinksToResources(res);
+        
+        return res;
     }
     
     @RequestMapping(
