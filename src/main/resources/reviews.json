@@ -1,0 +1,30 @@
+[
+{
+    "user":1,
+    "beer":1,
+    "rating": 5,
+    "title": "Paras Bisse",
+    "text":"Kyllä täytyy sanoa että parasta bissee"
+},
+{
+    "user":2,
+    "beer":1,
+    "rating": 3,
+    "title": "Kohtuu Bisse",
+    "text":"Ihan jees bissee."
+},
+{
+    "user":3,
+    "beer":1,
+    "rating": 2,
+    "title": "Aika huonoo Bisse",
+    "text":"Semi huonoo bissee."
+},
+{
+    "user":4,
+    "beer":1,
+    "rating": 1,
+    "title": "Paskinta Bisse",
+    "text":"Siis mitä kuraa täää nyt on????"
+}
+]
