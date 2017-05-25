@@ -1,12 +1,8 @@
 package fi.tamk.beerbros.kaljakauppa.components.image;
 
-import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.NotFoundException;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
+import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.*;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.imageio.ImageIO;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,16 +13,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Entity class for high score entities.
+ * Rest controller for Image resources.
  *
  * @author Niko Mustonen mustonen.niko@gmail.com
  * @version %I%, %G%
- * @since 1.7
+ * @since 1.8
  */
 @RestController
 @RequestMapping("/kaljakauppa/images")
 public class ImageController {
 
+    /**
+     * Fetch image from the backend.
+     *
+     * @param id Image id.
+     * @return Jpeg image byte array.
+     * @throws NotFoundException Is thrown if image is not found.
+     */
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.GET,
@@ -34,16 +37,23 @@ public class ImageController {
     public byte[] getImage(@PathVariable int id) throws NotFoundException {
 
         try {
-            //System.out.println("images/" + String.format("%06d", id) + ".jpg");
             InputStream in = new ClassPathResource(
                     "images/" + String.format("%06d", id) + ".jpg")
                     .getInputStream();
             return IOUtils.toByteArray(in);
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new NotFoundException("");
         }
     }
 
+    /**
+     * Adds image to backend server.
+     *
+     * Under construction.
+     *
+     * @param image Image in byte array format.
+     * @return Image.
+     */
     @RequestMapping(
             //value = "/{id}",
             method = RequestMethod.POST,
@@ -51,7 +61,6 @@ public class ImageController {
             produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] addImage(@RequestBody byte[] image) {
 
-        return image;
         /*try {
             InputStream in = new ByteArrayInputStream(b);
             BufferedImage bi = ImageIO.read(in);
@@ -72,5 +81,6 @@ public class ImageController {
             e.printStackTrace();
             return null;
         }*/
+        return null;
     }
 }

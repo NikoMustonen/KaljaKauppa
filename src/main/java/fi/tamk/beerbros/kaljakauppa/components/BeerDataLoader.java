@@ -16,56 +16,112 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
 /**
- * Entity class for high score entities.
+ * Class for loading dummy data to database.
+ *
+ * Runs before application starts.
  *
  * @author Niko Mustonen mustonen.niko@gmail.com
  * @version %I%, %G%
- * @since 1.7
+ * @since 1.8
  */
 @Component
 public class BeerDataLoader implements ApplicationRunner {
 
+    /**
+     * Review database table handler;
+     */
     @Autowired
     ReviewRepository rr;
-    
+
+    /**
+     * Currently used environment.
+     */
     @Autowired
     Environment environment;
 
+    /**
+     * Manufacturer database table handler.
+     */
     @Autowired
     ManufacturerRepository mr;
 
+    /**
+     * BeerType database table handler.
+     */
     @Autowired
     BeerTypeRepository btr;
 
+    /**
+     * Country database table handler.
+     */
     @Autowired
     CountryRepository cr;
 
+    /**
+     * Beer database table handler.
+     */
     @Autowired
     BeerRepository br;
 
+    /**
+     * Dummy description for country entities.
+     */
     private final String COUNTRY_DESCRIPTION
             = "Country called %s!";
 
+    /**
+     * Dummy description for beer type entities.
+     */
     private final String BEER_TYPE_DESCRIPTION
             = "%s is a beer style which is kind of like %s.";
 
+    /**
+     * Dummy description for manufacturer entities.
+     */
     private final String MANUFACTURER_DESCRIPTION
             = "%s is a beer brewing company from %s.";
 
+    /**
+     * Last progress bar value.
+     */
+    private int lastValue = 0;
+
+    /**
+     * Progress bar visual presentation.
+     */
+    private String progressBar = "";
+
+    /**
+     * Loading bars maximum length.
+     */
+    private final int LOADING_BAR_LENTGH = 30;
+
+    /**
+     * Starts database population.
+     *
+     * Populates database with some dummy data from JSON files.
+     *
+     * @param args Not used.
+     */
     @Override
     public void run(ApplicationArguments args) {
         ObjectMapper mapper = new ObjectMapper();
         int currentIndex = 1;
 
         try {
-            //File file = new ClassPathResource("beers.json").getFile();
-            InputStream isBeer = new ClassPathResource("beers.json").getInputStream();
-            InputStream isReviews = new ClassPathResource("reviews.json").getInputStream();
-            
+            //Load JSON files
+            InputStream isBeer
+                    = new ClassPathResource("beers.json").getInputStream();
+            InputStream isReviews
+                    = new ClassPathResource("reviews.json").getInputStream();
+
+            //Read and convert JSON files
             Beer[] beers = mapper.readValue(isBeer, Beer[].class);
             Review[] reviews = mapper.readValue(isReviews, Review[].class);
             System.out.println("\n\nPOPULATING DATABASE: ");
-            
+
+            /*Iterate through beer JSON file and add all the countries, 
+            manufacturers, beertypes and beers.*/
             for (Beer b : beers) {
 
                 saveCountry(b);
@@ -76,32 +132,42 @@ public class BeerDataLoader implements ApplicationRunner {
                     b.setTimeAdded(new Timestamp(System.currentTimeMillis()));
                     br.save(b);
                 } catch (Exception e) {
-                    //System.out.println("DUBLICATE VALUE!!!");
+                    //This prevents failing when duplicate dummy data happens.
                 }
 
                 printLoadingProgress(currentIndex, beers.length);
                 currentIndex++;
             }
-            
-            for(Review r : reviews) {
+
+            //Save dummy reviews for the first beer in the database.
+            for (Review r : reviews) {
                 rr.save(r);
             }
-            
-            System.out.println("\n\nDATABASE READY\nAPP RUNNING ON PORT...\n");
 
+            //Get environment property for current environment
             String port = environment.getProperty("server.port");
-            
-            System.out.println("Kaljakauppa site: http://localhost:" + port + "/index.html");
-            System.out.println("Kaljakauppa api: http://localhost:" + port + "/kaljakauppa\n\n");
+
+            //Print instructions
+            System.out.println(" --- DATABASE READY ---\n\n"
+                    + "BACKEND APP RUNNING ON PORT: " + port + "\n");
+            System.out.println("Kaljakauppa site: http://localhost:"
+                    + port + "/index.html");
+            System.out.println("Kaljakauppa api: http://localhost:"
+                    + port + "/kaljakauppa\n\n");
         } catch (IOException e) {
-            e.printStackTrace();
+
+            //Print error message if database population fails.
+            System.out.println("Error while populating database:"
+                    + e.getMessage());
         }
     }
 
-    int lastValue = 0;
-    String progressBar = "";
-    final int LOADING_BAR_LENTGH = 30;
-
+    /**
+     * Prints loading bar which indicates database loading progress.
+     * 
+     * @param currentIndex Current database loading progress.
+     * @param maxIndex Maximum database loading progress.
+     */
     private void printLoadingProgress(int currentIndex, int maxIndex) {
         int progression
                 = (int) (((float) currentIndex / (float) maxIndex)
@@ -114,6 +180,11 @@ public class BeerDataLoader implements ApplicationRunner {
         }
     }
 
+    /**
+     * Saves country entity to database.
+     * 
+     * @param b Country is fetched from this beer entity.
+     */
     private void saveCountry(Beer b) {
         final String countryDesc = String.format(
                 COUNTRY_DESCRIPTION,
@@ -126,6 +197,11 @@ public class BeerDataLoader implements ApplicationRunner {
         }
     }
 
+    /**
+     * Saves manufacturer entity to database.
+     * 
+     * @param b Manufacturer is fetched from this beer entity.
+     */
     private void saveManufacturer(Beer b) {
         final String manuDesc = String.format(
                 MANUFACTURER_DESCRIPTION,
@@ -140,6 +216,11 @@ public class BeerDataLoader implements ApplicationRunner {
         }
     }
 
+    /**
+     * Saves Beer entity to database.
+     * 
+     * @param b Beer entity to be saved.
+     */
     private void saveBeerType(Beer b) {
         final String typeDesc = String.format(
                 BEER_TYPE_DESCRIPTION,

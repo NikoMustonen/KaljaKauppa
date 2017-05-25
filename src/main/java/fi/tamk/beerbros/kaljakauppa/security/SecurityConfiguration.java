@@ -14,22 +14,38 @@ import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.web.authentication.*;
 
 /**
- * Entity class for high score entities.
+ * Security configurations for the application..
  *
  * @author Niko Mustonen mustonen.niko@gmail.com
  * @version %I%, %G%
- * @since 1.7
+ * @since 1.8
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    /**
+     * Apis root directory.
+     */
     private final String API_ROOT_URL = "/kaljakauppa";
+
+    /**
+     * Login page path.
+     */
     private final String LOGIN_URL = API_ROOT_URL + "/login";
 
-   @Autowired
-   UserRepository ur;
-    
+    /**
+     * User database handler.
+     */
+    @Autowired
+    UserRepository ur;
+
+    /**
+     * Sets open ports and other configurations for the web page security.
+     *
+     * @param http HttpSecurity Object.
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
@@ -82,7 +98,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/kaljakauppa/images/*")
                 .permitAll()
                 .antMatchers(
-                        HttpMethod.POST, 
+                        HttpMethod.POST,
                         LOGIN_URL,
                         "/kaljakauppa/users",
                         "/kaljakauppa/images",
@@ -90,24 +106,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/kaljakauppa/images/*",
                         "/kaljakauppa/images/**",
                         "/kaljakauppa/images/**/*",
-                        "/kaljakauppa/reviews",             //TMP
-                        "/kaljakauppa/reviews/*",           //TMP
-                        "/kaljakauppa/reviews/*/*",         //TMP
-                        "/kaljakauppa/reviews/*/*/*",       //TMP
-                        "/kaljakauppa/reviews/*/*/*/*",     //TMP
-                        "/kaljakauppa/reviews/*/*/*/*/*",   //TMP
-                        "/kaljakauppa/users/**")            //TMP
+                        "/kaljakauppa/reviews", //TMP
+                        "/kaljakauppa/reviews/*", //TMP
+                        "/kaljakauppa/reviews/*/*", //TMP
+                        "/kaljakauppa/reviews/*/*/*", //TMP
+                        "/kaljakauppa/reviews/*/*/*/*", //TMP
+                        "/kaljakauppa/reviews/*/*/*/*/*", //TMP
+                        "/kaljakauppa/users/**") //TMP
                 .permitAll()
                 .antMatchers(
-                        HttpMethod.PUT, 
+                        HttpMethod.PUT,
                         LOGIN_URL,
-                        "/kaljakauppa/users/**",            //TMP
-                        "/kaljakauppa/reviews",             //TMP
-                        "/kaljakauppa/reviews/*",           //TMP
-                        "/kaljakauppa/reviews/*/*",         //TMP
-                        "/kaljakauppa/reviews/*/*/*",       //TMP
-                        "/kaljakauppa/reviews/*/*/*/*",     //TMP
-                        "/kaljakauppa/reviews/*/*/*/*/*")   //TMP
+                        "/kaljakauppa/users/**", //TMP
+                        "/kaljakauppa/reviews", //TMP
+                        "/kaljakauppa/reviews/*", //TMP
+                        "/kaljakauppa/reviews/*/*", //TMP
+                        "/kaljakauppa/reviews/*/*/*", //TMP
+                        "/kaljakauppa/reviews/*/*/*/*", //TMP
+                        "/kaljakauppa/reviews/*/*/*/*/*") //TMP
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -117,20 +133,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new AuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
     }
-    
+
+    /**
+     * Configure user privileges.
+     *
+     * @param am Authentication manager where privileges are set.
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder am) throws Exception {
         am.inMemoryAuthentication().withUser("admin").password("password")
                 .roles("ADMIN");
-        
+
         ObjectMapper mapper = new ObjectMapper();
         InputStream isUsers = new ClassPathResource("users.json").getInputStream();
         User[] users = mapper.readValue(isUsers, User[].class);
-        
-        for(User u : users) {
+
+        for (User u : users) {
             ur.save(u);
             am.inMemoryAuthentication().withUser(u.getUsername()).password(u.getPassword())
-                .roles("USER");    
+                    .roles("USER");
         }
     }
 }
