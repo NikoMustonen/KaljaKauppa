@@ -31,5 +31,16 @@
     "street": "Lettukatu 8",
     "city": "Vantaa",
     "areaCode": "75600"
+},
+{
+    "firstName": "Jukka",
+    "lastName": "Pornainen",
+    "username": "JukkisKova",
+    "password": "JukkaOnRulez123",
+    "phone": "045-234 7764",
+    "email": "jukka.pornainen@hotmail.com",
+    "street": "Jullipulli 4",
+    "city": "Paaabaa",
+    "areaCode": "23456"
 }
 ]

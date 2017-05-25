@@ -16,16 +16,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+/**
+ * Rest controller for user handling.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.8
+ */
 @RestController
 @RequestMapping("/kaljakauppa/users")
 public class UserController {
 
+    /**
+     * User database table handler.
+     */
     @Autowired
     private UserRepository ur;
-    
+
+    /**
+     * User resource HATEOAS link generator.
+     */
     @Autowired
     private UserResourceAssembler resourceAssembler;
-    
+
+    /**
+     * Returns all the users from the database.
+     *
+     * @return List of all users.
+     */
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,14 +51,20 @@ public class UserController {
     public Resources<Resource<User>> getAllUsers() {
         Iterable<User> users = ur.findAll();
         List<Resource<User>> resourceList = new ArrayList<>();
-        
-        for(User u : users) {
+
+        for (User u : users) {
             resourceList.add(resourceAssembler.toResource(u));
         }
-        
+
         return new Resources<>(resourceList, linkTo(UserController.class).withSelfRel());
     }
-    
+
+    /**
+     * Returns specific user with given id.
+     *
+     * @param id Given id.
+     * @return User entity object.
+     */
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.GET,
@@ -50,17 +74,29 @@ public class UserController {
         User u = ur.findOne(id);
         return this.resourceAssembler.toResource(u);
     }
-    
+
+    /**
+     * Adds user to database.
+     *
+     * @param user User entity object to be added.
+     * @return Created user entity object.
+     */
     @RequestMapping(
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Resource<User> addUser(@RequestBody User user) {
-        
+
         return this.resourceAssembler.toResource(ur.save(user));
     }
-    
+
+    /**
+     * Deletes user by given id.
+     *
+     * @param id Given id.
+     * @return Deleted user entity object.
+     */
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.DELETE,
@@ -71,7 +107,14 @@ public class UserController {
         ur.delete(id);
         return this.resourceAssembler.toResource(u);
     }
-    
+
+    /**
+     * Modifies user by given id.
+     *
+     * @param id Given id.
+     * @param user New user values.
+     * @return Modified user resource.
+     */
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.PUT,
@@ -79,7 +122,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Resource<User> modifyUserById(@PathVariable int id, @RequestBody User user) {
-        
+
         User u = ur.findOne(id);
         u.setFirstName(user.getFirstName());
         u.setLastName(user.getLastName());
@@ -91,7 +134,7 @@ public class UserController {
         u.setCity(user.getCity());
         u.setAreaCode(user.getAreaCode());
         u = ur.save(u);
-        
+
         return this.resourceAssembler.toResource(u);
     }
 }
