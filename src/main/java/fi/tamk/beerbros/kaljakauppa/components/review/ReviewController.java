@@ -1,9 +1,7 @@
 package fi.tamk.beerbros.kaljakauppa.components.review;
 
 import fi.tamk.beerbros.kaljakauppa.components.MainResourceAssembler;
-import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.BadRequestException;
-import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.NotFoundException;
-import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.ReviewedAlreadyException;
+import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +16,33 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
- * Entity class for high score entities.
+ * Rest controller class for review management.
  *
  * @author Niko Mustonen mustonen.niko@gmail.com
  * @version %I%, %G%
- * @since 1.7
+ * @since 1.8
  */
 @RestController
 @RequestMapping("/kaljakauppa/reviews")
 public class ReviewController {
 
+    /**
+     * Review database handler.
+     */
     @Autowired
     private ReviewRepository rr;
 
+    /**
+     * HATEOAS link generator for review resources.
+     */
     @Autowired
     private ReviewResourceAssembler resourceAssembler;
 
+    /**
+     * Returns all reviews from the database.
+     *
+     * @return List of reviews.
+     */
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,12 +55,19 @@ public class ReviewController {
             r.getBeer().setReviews(null);
             resourceList.add(resourceAssembler.toResource(r));
         }
-        Resources<Resource<Review>> res = new Resources<>(resourceList, linkTo(ReviewController.class).withSelfRel());
+        Resources<Resource<Review>> res = new Resources<>(resourceList,
+                linkTo(ReviewController.class).withSelfRel());
         MainResourceAssembler.addLinksToResources(res);
-        
+
         return res;
     }
 
+    /**
+     * Returns specific review by given id.
+     *
+     * @param id Id number.
+     * @return Review entity object.
+     */
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.GET,
@@ -63,12 +79,21 @@ public class ReviewController {
         return this.resourceAssembler.toResource(r);
     }
 
+    /**
+     * Adds review to database.
+     *
+     * @param review Review to be added.
+     * @return Added review.
+     * @throws ReviewedAlreadyException If duplicate entry.
+     * @throws BadRequestException If bad request.
+     */
     @RequestMapping(
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Resource addReview(@RequestBody Review review) throws ReviewedAlreadyException, BadRequestException {
+    public Resource addReview(@RequestBody Review review)
+            throws ReviewedAlreadyException, BadRequestException {
         try {
             Review r = review;
             if (rr.findOneByUserAndBeer(r.getUser(), r.getBeer()) != null) {
@@ -84,6 +109,15 @@ public class ReviewController {
         }
     }
 
+    /**
+     * Modifies review by given id and data.
+     *
+     * @param id Review id.
+     * @param review New data.
+     * @return Modified review.
+     * @throws BadRequestException if request was bad.
+     * @throws NotFoundException If resource was not found.
+     */
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.PUT,
@@ -111,6 +145,13 @@ public class ReviewController {
         }
     }
 
+    /**
+     * Deletes review by given id.
+     *
+     * @param id Review id.
+     * @return Removed review.
+     * @throws NotFoundException If review was not found.
+     */
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.DELETE,

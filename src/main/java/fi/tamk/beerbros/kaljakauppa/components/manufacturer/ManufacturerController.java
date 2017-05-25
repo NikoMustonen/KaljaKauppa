@@ -19,25 +19,39 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Entity class for high score entities.
+ * Rest controller class for Manufacturer management.
  *
  * @author Niko Mustonen mustonen.niko@gmail.com
  * @version %I%, %G%
- * @since 1.7
+ * @since 1.8
  */
 @RestController
 @RequestMapping("/kaljakauppa/manufacturers")
 public class ManufacturerController {
 
+    /**
+     * Manufacturer database handler.
+     */
     @Autowired
     private ManufacturerRepository mr;
-    
+
+    /**
+     * HATEOAS link generator for manufacturer resources.
+     */
     @Autowired
     private ManufacturerResourceAssembler resourceAssembler;
-    
+
+    /**
+     * HATEOAS link generator for beer resources.
+     */
     @Autowired
     private BeerResourceAssembler beerResourceAssembler;
-    
+
+    /**
+     * Returns all manufacturers from the database.
+     *
+     * @return List of manufacturers.
+     */
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,24 +59,38 @@ public class ManufacturerController {
     public Resources<Resource<Manufacturer>> getAllManufacturers() {
         Iterable<Manufacturer> manufacturers = mr.findAll();
         List<Resource<Manufacturer>> resourceList = new ArrayList<>();
-        
-        for(Manufacturer m : manufacturers) {
+
+        for (Manufacturer m : manufacturers) {
             resourceList.add(resourceAssembler.toResource(m));
         }
-        
-        return new Resources<>(resourceList, linkTo(ManufacturerController.class).withSelfRel());
+
+        return new Resources<>(resourceList,
+                linkTo(ManufacturerController.class).withSelfRel());
     }
-    
+
+    /**
+     * Returns one specific manufacturer by given id.
+     *
+     * @param name Manufacturer id name.
+     * @return Found manufacturer.
+     */
     @RequestMapping(
             value = "/{name}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Resource<Manufacturer> getManufacturerByName(@PathVariable String name) {
+    public Resource<Manufacturer> getManufacturerByName(
+            @PathVariable String name) {
         Manufacturer m = mr.findOne(name);
         return this.resourceAssembler.toResource(m);
     }
-    
+
+    /**
+     * Returns all beers by given manufacturer.
+     *
+     * @param name Manufacturer id name.
+     * @return List of beers.
+     */
     @RequestMapping(
             value = "/{name}/beers",
             method = RequestMethod.GET,
@@ -72,21 +100,29 @@ public class ManufacturerController {
         Manufacturer m = mr.findOne(name);
         Iterable<Beer> beers = mr.findAllBeerByManufacturer(m);
         List<Resource<Beer>> beerResourceList = new ArrayList<>();
-        
-        for(Beer b : beers) {
+
+        for (Beer b : beers) {
             b.setReviews(null);
             beerResourceList.add(beerResourceAssembler.toResource(b));
         }
-        
-        return new Resources<>(beerResourceList, linkTo(BeerController.class).withSelfRel());
+
+        return new Resources<>(beerResourceList, linkTo(BeerController.class)
+                .withSelfRel());
     }
-    
+
+    /**
+     * Adds manufacturer to database.
+     *
+     * @param manufacturer Manufacturer entity object.
+     * @return Added manufacturer.
+     */
     @RequestMapping(
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Resource<Manufacturer> addManufacturer(@RequestBody Manufacturer manufacturer) {
+    public Resource<Manufacturer> addManufacturer(
+            @RequestBody Manufacturer manufacturer) {
         Manufacturer m = mr.save(manufacturer);
         return this.resourceAssembler.toResource(m);
     }

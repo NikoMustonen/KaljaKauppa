@@ -1,7 +1,7 @@
 package fi.tamk.beerbros.kaljakauppa.components.shoppingcart;
 
 import fi.tamk.beerbros.kaljakauppa.components.beer.BeerController;
-import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.NotFoundException;
+import fi.tamk.beerbros.kaljakauppa.components.exceptionhandling.exceptions.*;
 import fi.tamk.beerbros.kaljakauppa.components.user.User;
 import fi.tamk.beerbros.kaljakauppa.components.user.UserController;
 import fi.tamk.beerbros.kaljakauppa.components.user.UserRepository;
@@ -23,28 +23,49 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * Entity class for high score entities.
+ * Rest controller class for shopping cart management.
  *
  * @author Niko Mustonen mustonen.niko@gmail.com
  * @version %I%, %G%
- * @since 1.7
+ * @since 1.8
  */
 @RestController
 @RequestMapping(value = "/kaljakauppa/users")
 public class ShoppingCartController {
 
+    /**
+     * Shopping cart database handler.
+     */
     @Autowired
     ShoppingCartRepository scr;
 
+    /**
+     * User cart database handler.
+     */
     @Autowired
     UserRepository ur;
 
+    /**
+     * Placed order database handler.
+     */
     @Autowired
     OrderRepository or;
 
+    /**
+     * Shopping item database handler.
+     */
     @Autowired
     ShoppingItemRepository sir;
 
+    /**
+     * Returns users shopping cart.
+     *
+     * Shopping cart has its user id as its own id.
+     *
+     * @param id Users and shoppingcarts id.
+     * @return Users shopping cart.
+     * @throws NotFoundException Is thrown if user is not found.
+     */
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -61,16 +82,26 @@ public class ShoppingCartController {
         for (ShoppingCartItem i : shoppingCart.getItems()) {
             i.setShoppingCartVisible(false);
             Resource<ShoppingCartItem> resource = new Resource<>(i);
-            resource.add(linkTo(BeerController.class).slash(i.getBeer()).withSelfRel());
+            resource.add(linkTo(BeerController.class).slash(i.getBeer())
+                    .withSelfRel());
             itemResourceList.add(resource);
         }
         resources = new Resources<>(itemResourceList);
         resources.add(linkTo(UserController.class).slash(id).withRel("user"));
-        resources.add(linkTo(ShoppingCartController.class).slash(id).slash("shoppingcart").withSelfRel());
+        resources.add(linkTo(ShoppingCartController.class).slash(id).
+                slash("shoppingcart").withSelfRel());
 
         return resources;
     }
 
+    /**
+     * Adds item to users shopping cart.
+     *
+     * @param id User and shopping cart id.
+     * @param item Item entity object to be added.
+     * @return Added item.
+     * @throws NotFoundException If user is not found.
+     */
     @RequestMapping(
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -78,7 +109,8 @@ public class ShoppingCartController {
             value = "/{id}/shoppingcart"
     )
     @ResponseStatus(HttpStatus.OK)
-    public Resource<ShoppingCart> addItemToCart(@PathVariable Integer id, @RequestBody ShoppingCartItem item) throws NotFoundException {
+    public Resource<ShoppingCart> addItemToCart(@PathVariable Integer id,
+            @RequestBody ShoppingCartItem item) throws NotFoundException {
         ShoppingCart shoppingCart = getCart(id);
 
         ShoppingCartItem tmpItem = shoppingCart.checkIfHasItemAndGetIt(item);
@@ -101,16 +133,26 @@ public class ShoppingCartController {
 
             Resource<ShoppingCart> res = new Resource<>(shoppingCart);
             res.add(linkTo(UserController.class).slash(id).withRel("user"));
-            res.add(linkTo(BeerController.class).slash(item.getBeer()).withRel("beer"));
-            res.add(linkTo(ShoppingCartController.class).slash(id).slash("shoppingcart").withSelfRel());
+            res.add(linkTo(BeerController.class).slash(item.getBeer()).
+                    withRel("beer"));
+            res.add(linkTo(ShoppingCartController.class).slash(id).
+                    slash("shoppingcart").withSelfRel());
             return res;
         }
         Resource<ShoppingCart> res = new Resource<>(shoppingCart);
         res.add(linkTo(UserController.class).slash(id).withRel("user"));
-        res.add(linkTo(ShoppingCartController.class).slash(id).slash("shoppingcart").withSelfRel());
+        res.add(linkTo(ShoppingCartController.class).slash(id)
+                .slash("shoppingcart").withSelfRel());
         return res;
     }
 
+    /**
+     * Places order and empties users shopping cart.
+     *
+     * @param id Users and shopping carts id.
+     * @return Order information.
+     * @throws NotFoundException If user is not found.
+     */
     @RequestMapping(
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -118,7 +160,9 @@ public class ShoppingCartController {
             value = "/{id}/shoppingcart"
     )
     @ResponseStatus(HttpStatus.OK)
-    public Resources placeOrder(@PathVariable Integer id) throws NotFoundException {
+    public Resources placeOrder(@PathVariable Integer id)
+            throws NotFoundException {
+
         ShoppingCart shoppingCart = scr.findOne(id);
         if (shoppingCart == null || shoppingCart.getItems().size() < 1) {
             throw new NotFoundException("Shopping cart was empty");
@@ -138,7 +182,8 @@ public class ShoppingCartController {
             i.setOrder(o);
             sir.save(i);
             Resource<ShoppingCartItem> resI = new Resource<>(i);
-            resI.add(linkTo(BeerController.class).slash(i.getBeer()).withSelfRel());
+            resI.add(linkTo(BeerController.class).slash(i.getBeer())
+                    .withSelfRel());
             resItems.add(resI);
         }
         scr.save(shoppingCart);
@@ -149,7 +194,8 @@ public class ShoppingCartController {
             System.out.println("items: " + items.size());
         }
         Resource<User> resU = new Resource<>(o.getUser());
-        resU.add(linkTo(UserController.class).slash(o.getUser().getId()).withSelfRel());
+        resU.add(linkTo(UserController.class).slash(o.getUser().getId())
+                .withSelfRel());
         resItems.add(resU);
 
         Resources allResources = new Resources(resItems);
@@ -157,6 +203,15 @@ public class ShoppingCartController {
         return allResources;
     }
 
+    /**
+     * Fetches shopping cart of the given user.
+     *
+     * If user does not already have shopping cart, one will be created.
+     *
+     * @param userId Users id.
+     * @return Users shopping cart.
+     * @throws NotFoundException If user is not found.
+     */
     private ShoppingCart getCart(int userId) throws NotFoundException {
         try {
             User u = ur.findOne(userId);
