@@ -1,56 +1,40 @@
 import React, {Component} from 'react';
-import { flatten } from '../Utils';
 import BeerNode from './BeerNode';
-
-const filterItems = ['name', 'description', 'country.name', 'manufacturer.name', 'beerType.name'];
 
 class BeerList extends Component {
     constructor(props) {
         super(props);
-        this.checkFilter = this.checkFilter.bind(this);
-    }
 
-    checkFilter(node) {
-        let filter = this.props.filter,
-            flat,
-            found = false;
+        let data = this.props.data, beernodes = [];
 
-        if (filter === "") return true;
+        for (let beer of data) {
+            let filteritems = [],
+                beernode = {};
 
-        flat = flatten(node);
+            filteritems.push(beer.name);
+            filteritems.push(beer.description);
+            filteritems.push(beer.manufacturer.name);
 
-        for (let key of filterItems) {
-            if (flat.hasOwnProperty(key)) {
-                if (flat[key].toString().search(filter) !== -1 ) {
-                    found = true;
-                    break;
-                }
-            }
+            beernode.strfilter = filteritems.join('~');
+
+            beernode.data = beer;
+            beernodes.push(beernode);
         }
 
-        return found;
+        this.state = {
+          'filter': '',
+          'beers': beernodes
+        };
     }
 
     render() {
-        let data = this.props.data,
-            listed = [],
-            update;
+      let visibleNodes = this.state.beers.map((beernode, index) => {
+        return (beernode.strfilter.indexOf(this.props.filter) !== -1) ?
+          <BeerNode key={index} data={beernode.data} filter={this.props.filter}/> :
+          null;
+      });
 
-        listed = [];
-
-        for (let beer of data) {
-            update = this.checkFilter(beer);
-            if(update) {
-                console.log()
-                listed.push(<BeerNode
-                    key={beer.id}
-                    data={beer}
-                    filter={this.props.filter}
-                    />)
-            }
-        }
-
-        return <div className="beerlist">{listed}</div>;
+      return <div className="beerlist">{visibleNodes}</div>;
     }
 }
 

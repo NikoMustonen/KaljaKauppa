@@ -26,24 +26,27 @@ function capitalizeFirstLetter(string) {
 function mark(str, test) {
   var bits = [],
     node = [],
-    i;
+    i,
+    key = 0;
 
   if (test !== "" && test !== null && test !== undefined) {
     bits = str.toString().split(test);
 
     if (bits.length === 1) {
       if (bits[0] === test) {
+        key += 1;
         node.push(
-          <mark>{test}</mark>
+          <mark key={key}>{test}</mark>
         );
       } else {
         node.push(bits);
       }
     } else {
       for (i = 0; i < bits.length - 1; i++) {
+        key += 1;
         node.push(bits[i]);
         node.push(
-          <mark>{test}</mark>
+          <mark key={key}>{test}</mark>
         );
       }
       node.push(bits[bits.length - 1]);
@@ -55,4 +58,10 @@ function mark(str, test) {
   }
 }
 
-export {flatten, capitalizeFirstLetter, mark }
+function getImagefromDatabase(dburi) {
+  return fetch(dburi)
+  .then((response) => { return response.blob() })
+  .then((blob) => { return URL.createObjectURL(blob) })
+}
+
+export {flatten, capitalizeFirstLetter, mark, getImagefromDatabase }

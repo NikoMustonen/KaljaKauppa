@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BeerList from './BeerList';
 import SearchBar from './SearchBar';
-import './BeerContainer.css';
+
 
 class BeerContainer extends Component {
   constructor(props) {
@@ -11,16 +11,20 @@ class BeerContainer extends Component {
       : window.location.origin;
 
     this.state = {
+      'searchLoaded' : false,
       'doneLoading': false,
-      'searchText': "",
+      'searchBar': null,
+      'searchText': "ruohoinen",
       'hostname': host
     };
 
-    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
     this.fetchData = this.fetchData.bind(this);
-    this.handleModify = this.handleModify.bind(this);
-    this.fetchData();
   };
+
+  componentWillMount() {
+    this.fetchData();
+  }
 
   fetchData() {
     var that = this;
@@ -29,34 +33,21 @@ class BeerContainer extends Component {
     .then(function(response) {
       return response.json();
     }).then(function(myJSON) {
-      that.setState({'doneLoading': true, 'data': myJSON._embedded.beers});
+      that.setState({'doneLoading': true, 'beerlist': myJSON._embedded.beers });
     });
   }
 
-  handleSearchChange(event) {
-    this.setState({'searchText': event.target.value});
-  }
-
-  handleModify(id) {
-    var data = this.state.data;
-
-    data = data.filter((el) => {
-      return el.id !== id;
-    })
-
-    this.setState({'data': data});
+  handleFilterChange(event) {
+    this.setState({'searchText': event.target.value });
   }
 
   render() {
-    if (this.state.doneLoading) {
-      return (
-        <div className="AppWrapper">
-          <SearchBar value={this.state.searchText} onChange={this.handleSearchChange}/>
-          <BeerList data={this.state.data} filter={this.state.searchText} modify={this.handleModify}/>
-        </div>
-      );
-    }
-    return <h1>Loading...</h1>;
+    return (
+      <div>
+        <SearchBar value={this.state.searchText} onChange={this.handleFilterChange}/>
+        { this.state.doneLoading && <BeerList data={this.state.beerlist} filter={this.state.searchText}/> }
+      </div>
+    );
   }
 }
 

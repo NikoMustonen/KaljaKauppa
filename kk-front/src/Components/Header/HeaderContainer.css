@@ -1,0 +1,26 @@
+.HeaderContainer {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 5em;
+  background-color: rgb(43, 199, 227);
+  z-index: 10000;
+}
+
+.HeaderContent {
+  height: inherit;
+  margin-top: 0;
+  padding-top: 0;
+  width: 90%;
+  max-width: 1104px;
+  margin: auto;
+  display: block;
+}
+
+.Login {
+
+  height: 3em;
+  width: 3em;
+  float: right;
+  background-color: black;
+}
