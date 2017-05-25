@@ -38,8 +38,8 @@ class ViewBeer extends Component {
     .then(function(response) {
       return response.json();
     }).then(function(myJSON) {
-      console.log(myJSON);
-      that.setState({'loadedReviews': true, 'reviews': myJSON});
+      let reviews = myJSON.hasOwnProperty('_embedded') ? myJSON._embedded : {};
+      that.setState({'loadedReviews': true, 'reviews': reviews});
     });
   }
 

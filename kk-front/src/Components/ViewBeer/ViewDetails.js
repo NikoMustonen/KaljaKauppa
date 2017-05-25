@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+import ImageLoader from '../ImageLoader';
+import ReviewList from '../Reviews/ReviewList';
+import ReviewForm from '../Reviews/ReviewForm';
+import './ViewDetails.css';
+
 
 class ViewDetails extends Component {
   render() {
@@ -6,10 +11,14 @@ class ViewDetails extends Component {
       updated = {},
       price;
 
+    console.log(data);
+
     updated.name = data.name;
     updated.description = data.description;
 
-    updated.imgUrl = data.imgUrl;
+    updated.imgUrl = JSON.stringify(data._links.image.href);
+    console.log(updated.imgUrl);
+
     updated.timeAdded = (new Date(data.timeAdded)).toString();
     updated.beerType = data.beerType.name;
     updated.country = data.country.name;
@@ -23,12 +32,13 @@ class ViewDetails extends Component {
     }
 
     return (
-      <div>
-        <div>
-          <img src={updated.imgUrl} alt={updated.name}/>
+      <div className="DetailContainer">
+        <div className="DetailImage">
+          <ImageLoader source={updated.imgUrl} altText={updated.name} />
+          <div className="priceBase">{updated.price}</div>
         </div>
-        <h3>{updated.name}</h3>
-        <div>{updated.price}</div>
+        <h1>{updated.name}</h1>
+
         <p>Pakkaus: {data.packageType}</p>
         <p>PakkausKoko: {data.volume}</p>
         <p>Oluttyyppi {updated.beerType}</p>
@@ -40,7 +50,10 @@ class ViewDetails extends Component {
         <p>EBC: {data.ebc}</p>
         <p>Lisätty: {updated.timeAdded}</p>
         <br/>
-        <h5>{JSON.stringify(this.props.reviews)}</h5>
+        <div className="ReviewContainer">
+          <ReviewForm/>
+          <ReviewList reviews={this.props.reviews} />
+        </div>
       </div>
     );
   }

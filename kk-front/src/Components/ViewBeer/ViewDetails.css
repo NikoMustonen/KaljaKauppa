@@ -1,32 +1,30 @@
-.beernode {
-  position: relative;
-  float: left;
-  min-width: 300px;
-  width: 29%;
-  height: 400px;
-  margin-right: .5em;
-  margin-bottom: .5em;
-  padding-right: .5em;
-  padding-left: .5em;
+.DetailContainer {
+  margin: 2em auto;
+  max-width: 1024px;
   border: 1px solid;
-  border-radius: 5%;
+  padding: 0 1em 0 1em;
   border-color: black;
   border-collapse: collapse;
+  border-radius: 1%;
   background-color: white;
 }
 
-.beerimage {
+.ReviewNode {
+  border-top: 1px solid;
+  border-color: black;
+  border-collapse: collapse;
+}
+
+.DetailContainer p {
+  margin-left: 1em;
+}
+
+.DetailImage {
   position: relative;
-  max-height: 300px;
   padding-top: 1em;
   padding-left: 1em;
   float: right;
   clear: right;
-}
-
-.beerimage img {
-  max-height: inherit;
-  padding-top: inherit;
 }
 
 .priceBase {
