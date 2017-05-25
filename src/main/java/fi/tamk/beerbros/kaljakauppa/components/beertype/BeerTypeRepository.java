@@ -6,6 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 public interface BeerTypeRepository extends CrudRepository<BeerType, String>{
     
     @Query(value = "SELECT DISTINCT p FROM beer b LEFT JOIN b.country p WHERE b.beerType=:beerType")

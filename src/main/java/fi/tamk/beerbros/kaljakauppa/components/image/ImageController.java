@@ -16,6 +16,13 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @RestController
 @RequestMapping("/kaljakauppa/images")
 public class ImageController {

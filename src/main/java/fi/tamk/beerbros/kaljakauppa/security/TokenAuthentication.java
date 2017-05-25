@@ -10,6 +10,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication
         .UsernamePasswordAuthenticationToken;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 public class TokenAuthentication {
 
     public static final long EXPIRES_IN = 1000000;

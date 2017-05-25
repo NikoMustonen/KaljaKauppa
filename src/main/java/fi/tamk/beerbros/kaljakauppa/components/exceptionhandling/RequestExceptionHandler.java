@@ -5,6 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @ControllerAdvice
 public class RequestExceptionHandler {
     

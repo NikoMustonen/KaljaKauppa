@@ -6,6 +6,13 @@ import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.*;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Entity(name = "shopping_cart")
 public class ShoppingCart implements Serializable {
     

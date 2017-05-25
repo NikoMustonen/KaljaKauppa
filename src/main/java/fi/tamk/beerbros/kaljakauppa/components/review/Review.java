@@ -7,6 +7,13 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.*;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Entity(name = "review")
 @Table(uniqueConstraints = 
         @UniqueConstraint(columnNames = {"user_id", "beer_id"}))

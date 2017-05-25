@@ -1,5 +1,12 @@
 package fi.tamk.beerbros.kaljakauppa.components.exceptionhandling;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 public class ExceptionResponse {
 
     private Integer status;

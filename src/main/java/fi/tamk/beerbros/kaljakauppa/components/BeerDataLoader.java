@@ -12,11 +12,16 @@ import fi.tamk.beerbros.kaljakauppa.components.beertype.*;
 import fi.tamk.beerbros.kaljakauppa.components.manufacturer.*;
 import fi.tamk.beerbros.kaljakauppa.components.review.Review;
 import fi.tamk.beerbros.kaljakauppa.components.review.ReviewRepository;
-import fi.tamk.beerbros.kaljakauppa.components.user.User;
-import fi.tamk.beerbros.kaljakauppa.components.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Component
 public class BeerDataLoader implements ApplicationRunner {
 

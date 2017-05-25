@@ -6,6 +6,13 @@ import fi.tamk.beerbros.kaljakauppa.components.manufacturer.Manufacturer;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 public interface BeerRepository extends CrudRepository<Beer, Integer>{
     
     public List<Beer> findByCountry(Country country);

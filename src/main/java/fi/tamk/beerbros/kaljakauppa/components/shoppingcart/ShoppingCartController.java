@@ -22,6 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @RestController
 @RequestMapping(value = "/kaljakauppa/users")
 public class ShoppingCartController {
@@ -75,7 +82,6 @@ public class ShoppingCartController {
         ShoppingCart shoppingCart = getCart(id);
 
         ShoppingCartItem tmpItem = shoppingCart.checkIfHasItemAndGetIt(item);
-        System.out.println(tmpItem == null);
 
         if (tmpItem != null) {
             tmpItem.setAmount(tmpItem.getAmount() + item.getAmount());

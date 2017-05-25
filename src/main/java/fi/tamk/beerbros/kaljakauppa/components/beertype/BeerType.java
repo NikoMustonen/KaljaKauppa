@@ -7,6 +7,13 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Entity(name = "beer_type")
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class BeerType implements Serializable {

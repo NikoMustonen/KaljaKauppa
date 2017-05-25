@@ -16,6 +16,13 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @RestController
 @RequestMapping("/kaljakauppa/beers")
 public class BeerController {
@@ -38,27 +45,35 @@ public class BeerController {
             @RequestParam(value = "country", required = false) String country,
             @RequestParam(value = "start", required = false) Integer start,
             @RequestParam(value = "step", required = false) Integer step) {
-
+        
         List<Beer> beers;
         Manufacturer m = (manufacturer == null) ? null : new Manufacturer(manufacturer);
         Country c = (country == null) ? null : new Country(country);
         BeerType bt = (beertype == null) ? null : new BeerType(beertype);
         
         if(m != null && c != null && bt != null) {
+            System.out.println("Debug: 1");
             beers = br.findByCountryAndManufacturerAndBeerType(c, m, bt);
         } else if(m == null && c != null && bt != null) {
+            System.out.println("Debug: 2");
             beers = br.findByBeerTypeAndCountry(bt, c);
         } else if(m == null && c == null && bt != null) {
+            System.out.println("Debug: 3");
             beers = br.findByBeerType(bt);
-        } else if(m == null && c != null && bt != null) {
+        } else if(m == null && c != null && bt == null) {
+            System.out.println("Debug: 4");
             beers = br.findByCountry(c);
         } else if(m != null && c == null && bt != null) {
+            System.out.println("Debug: 5");
             beers = br.findByBeerTypeAndManufacturer(bt, m);
         } else if(m != null && c == null && bt == null) {
+            System.out.println("Debug: 6");
             beers = br.findByManufacturer(m);
         } else if(m != null && c != null && bt == null) {
+            System.out.println("Debug: 7");
             beers = br.findByCountryAndManufacturer(c, m);
         } else {
+            System.out.println("Debug: 8");
             beers = Lists.newArrayList(br.findAll());
         }
             

@@ -10,6 +10,13 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Entity(name = "beer")
 public class Beer implements Serializable {
     

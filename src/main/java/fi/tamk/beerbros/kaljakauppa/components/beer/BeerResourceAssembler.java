@@ -9,6 +9,13 @@ import org.springframework.hateoas.ResourceAssembler;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.stereotype.Component;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Component
 public class BeerResourceAssembler implements
         ResourceAssembler<Beer, Resource<Beer>> {

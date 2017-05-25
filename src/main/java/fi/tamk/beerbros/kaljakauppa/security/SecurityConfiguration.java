@@ -13,6 +13,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.web.authentication.*;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -38,9 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.jpg",
                         "/kaljakauppa",
-                        //"/kaljakauppa/users",
-                        //"/kaljakauppa/users/**",
-                        //"/kaljakauppa/users/*/*",
+                        "/kaljakauppa/users",
+                        "/kaljakauppa/users/**",
+                        "/kaljakauppa/users/*/*",
                         "/kaljakauppa/beers",
                         "/kaljakauppa/beers/*",
                         "/kaljakauppa/beers/*/*",
@@ -59,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/kaljakauppa/manufacturers/*/*/*",
                         "/kaljakauppa/manufacturers/*/*/*/*",
                         "/kaljakauppa/manufacturers/*/*/*/*/*",
-                        "/kaljakauppa/countries",
+                        //"/kaljakauppa/countries",
                         "/kaljakauppa/countries/*",
                         "/kaljakauppa/countries/*",
                         "/kaljakauppa/countries/*/*",

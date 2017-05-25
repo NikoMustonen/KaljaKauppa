@@ -7,6 +7,13 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
 
+/**
+ * Entity class for high score entities.
+ *
+ * @author Niko Mustonen mustonen.niko@gmail.com
+ * @version %I%, %G%
+ * @since 1.7
+ */
 @Entity(name = "userr")
 public class User implements Serializable {
     
