@@ -1,7 +1,10 @@
 package fi.tamk.beerbros.kaljakauppa.components.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import fi.tamk.beerbros.kaljakauppa.components.review.Review;
+import fi.tamk.beerbros.kaljakauppa.components.shoppingcart.Order;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.*;
 
 @Entity(name = "userr")
@@ -41,6 +44,9 @@ public class User implements Serializable {
     
     @Column(name = "is_admin", nullable = false)
     private boolean isAdmin;
+    
+    @OneToMany(mappedBy = "user")
+    private Collection<Order> orders;
     
     public User() {}
     
@@ -133,5 +139,15 @@ public class User implements Serializable {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    @JsonIgnore
+    public Collection<Order> getOrders() {
+        return orders;
+    }
+
+    @JsonIgnore
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
     }
 }

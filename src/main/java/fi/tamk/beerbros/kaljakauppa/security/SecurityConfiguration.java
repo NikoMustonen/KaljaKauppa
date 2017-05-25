@@ -31,6 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/kaljakauppa",
                         "/kaljakauppa/users",
                         "/kaljakauppa/users/**",
+                        "/kaljakauppa/users/*/*",
                         "/kaljakauppa/beers",
                         "/kaljakauppa/beers/*",
                         "/kaljakauppa/beers/*/*",
@@ -68,16 +69,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         HttpMethod.POST, 
                         LOGIN_URL,
                         "/kaljakauppa/users",
+                        "/kaljakauppa/images",
+                        "/kaljakauppa/images/",
+                        "/kaljakauppa/images/*",
+                        "/kaljakauppa/images/**",
+                        "/kaljakauppa/images/**/*",
                         "/kaljakauppa/reviews",             //TMP
                         "/kaljakauppa/reviews/*",           //TMP
                         "/kaljakauppa/reviews/*/*",         //TMP
                         "/kaljakauppa/reviews/*/*/*",       //TMP
                         "/kaljakauppa/reviews/*/*/*/*",     //TMP
-                        "/kaljakauppa/reviews/*/*/*/*/*")   //TMP
+                        "/kaljakauppa/reviews/*/*/*/*/*",   //TMP
+                        "/kaljakauppa/users/**")            //TMP
                 .permitAll()
                 .antMatchers(
                         HttpMethod.PUT, 
                         LOGIN_URL,
+                        "/kaljakauppa/users/**",            //TMP
                         "/kaljakauppa/reviews",             //TMP
                         "/kaljakauppa/reviews/*",           //TMP
                         "/kaljakauppa/reviews/*/*",         //TMP

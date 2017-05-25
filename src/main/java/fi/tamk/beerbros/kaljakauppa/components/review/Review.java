@@ -70,6 +70,9 @@ public class Review implements Serializable {
     }
 
     public void setRating(short rating) {
+        if(rating < 1) rating = 1;
+        if(rating > 5) rating = 5;
+        
         this.rating = rating;
     }
 
@@ -78,6 +81,7 @@ public class Review implements Serializable {
     }
 
     public void setTitle(String title) {
+        if(title.length() > 100) title = title.substring(0, 100);
         this.title = title;
     }
 
@@ -86,6 +90,7 @@ public class Review implements Serializable {
     }
 
     public void setText(String text) {
+        if(text.length() > 255) text = text.substring(0, 255);
         this.text = text;
     }
 
