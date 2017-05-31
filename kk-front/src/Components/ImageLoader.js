@@ -16,9 +16,7 @@ class ImageLoader extends Component {
   fetchData() {
     let that = this;
 
-    let host : string = this.props.source.slice(1, this.props.source.length - 1);
-
-    fetch(host)
+    fetch(this.props.source)
     .then(response => {
       if(response.ok) {
         return response.blob();
